@@ -17,7 +17,6 @@ defineProps({
 
 <template>
   <div>
-    <h1>{{ name }}</h1>
     <label v-bind:for="name">{{labelName}} :</label>
     <select v-bind:name="name">
       <option v-for="op in options">
