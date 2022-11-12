@@ -43,7 +43,6 @@ span {
 }
 
 .profile-display {
-  margin: auto;
-  width: 50%;
+  text-align: center;
 }
 </style>
