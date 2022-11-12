@@ -17,7 +17,7 @@ const user = reactive({
 <template>
   <!-- Company View -->
   <template v-if="user.type === 'company'">
-    <div>
+    <div class="profile-display">
       <h1>Profil de l'entreprise</h1>
       <div><span>Nom de l'entreprise :</span> {{ user.name }}</div>
       <div><span>Ville de l'entreprise:</span> {{ user.state }}</div>
@@ -28,7 +28,7 @@ const user = reactive({
 
   <!-- Individual View -->
   <template v-else-if="user.type === 'individual'">
-    <div>
+    <div class="profile-display">
       <h1>Profil de l'entreprise</h1>
       <div><span>Nom :</span> {{ user.lastname }}</div>
       <div><span>Prénom :</span> {{ user.name }}</div>
@@ -40,5 +40,10 @@ const user = reactive({
 <style>
 span {
   font-weight: bold;
+}
+
+.profile-display {
+  margin: auto;
+  width: 50%;
 }
 </style>
