@@ -9,9 +9,21 @@ const user = reactive({
   type: "company",
   description: "We are a belgium company",
 });
-//Retrieve session data
-//TODO
-//Check if the user is a Company or an Individual
+
+//Get the token in the localStorage
+const token = localStorage.getItem("token");
+
+//Set the header of the request
+const header = new Headers();
+header.append("Content-Type", "application/json");
+header.append("Authorization", token);
+//Set the options of the request
+const options = {
+  method: "GET",
+  header: header,
+};
+
+const getUser = fetch("http://localhost:3000/users/getUserSession", options);
 </script>
 
 <template>
@@ -27,7 +39,7 @@ const user = reactive({
   </template>
 
   <!-- Individual View -->
-  <template v-else-if="user.type === 'individual'">
+  <template v-else-if="user.type === 'particular'">
     <div class="profile-display">
       <h1>Profil de l'entreprise</h1>
       <div><span>Nom :</span> {{ user.lastname }}</div>
