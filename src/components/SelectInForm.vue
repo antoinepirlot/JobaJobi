@@ -11,6 +11,9 @@ defineProps({
   options: {
     type: Array,
     required: true
+  },
+  modelValue: {
+    type: String
   }
 });
 </script>
@@ -18,7 +21,7 @@ defineProps({
 <template>
   <div>
     <label v-bind:for="name">{{labelName}} :</label>
-    <select v-bind:name="name">
+    <select v-bind:name="name" v-bind:value="modelValue" @input="$emit('update:modelValue', $event.target.value)">
       <option v-for="op in options">
         {{ op }}
       </option>
