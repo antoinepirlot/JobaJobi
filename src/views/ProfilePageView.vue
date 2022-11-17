@@ -1,50 +1,66 @@
 <script setup>
-import { ref, reactive } from "vue";
+import { ref, onMounted } from "vue";
 
-//Temporary user object
-const user = reactive({
-  name: "IPL",
-  state: "Belgium",
-  phone_number: "0445789865",
-  type: "company",
-  description: "We are a belgium company",
-});
+let user = ref([]);
 
 //Get the token in the localStorage
 const token = localStorage.getItem("token");
 
-//Set the header of the request
-const header = new Headers();
-header.append("Content-Type", "application/json");
-header.append("Authorization", token);
-//Set the options of the request
-const options = {
-  method: "GET",
-  header: header,
-};
+//fetch the user session
+onMounted(async () => {
+  //Set the header of the request
+  const header = new Headers();
+  header.append("Content-Type", "application/json");
+  header.append(
+    "Authorization",
 
-const getUser = fetch("http://localhost:3000/users/getUserSession", options);
+    token
+  );
+  //Set the options of the request
+  const options = {
+    method: "GET",
+    headers: header,
+  };
+  await fetch("/api/users/getUserSession", options)
+    .then(async (response) => {
+      const data = await response.json();
+
+      // check for error response
+      if (!response.ok) {
+        // get error message from body or default to response statusText
+        throw new Error(
+          "fetch error : " + response.status + " : " + response.statusText
+        );
+      }
+      //Assign the data to the user ref
+      user.value = data;
+    })
+    .catch((error) => {
+      console.error("There was an error : ", error);
+    });
+});
 </script>
 
 <template>
   <!-- Company View -->
+
   <template v-if="user.type === 'company'">
     <div class="profile-display">
       <h1>Profil de l'entreprise</h1>
-      <div><span>Nom de l'entreprise :</span> {{ user.name }}</div>
-      <div><span>Ville de l'entreprise:</span> {{ user.state }}</div>
-      <div><span>Numéro de téléphone : </span>{{ user.phone_number }}</div>
-      <div><span>Description :</span> {{ user.description }}</div>
+      <div><span>Nom de l'entreprise :</span> {{ user.companyName }}</div>
+      <div><span>Ville de l'entreprise:</span> {{ user.companyTown }}</div>
+      <div><span>Numéro de téléphone : </span>{{ user.phone }}</div>
+      <div><span>Description :</span> {{ user.companyDescription }}</div>
     </div>
   </template>
 
   <!-- Individual View -->
-  <template v-else-if="user.type === 'particular'">
+  <template v-else>
     <div class="profile-display">
-      <h1>Profil de l'entreprise</h1>
-      <div><span>Nom :</span> {{ user.lastname }}</div>
-      <div><span>Prénom :</span> {{ user.name }}</div>
-      <div><span> Numéro de téléphone :</span> {{ user.phone_number }}</div>
+      <h1>Profil</h1>
+      <div><span>Nom :</span> {{ user.name }}</div>
+      <div><span>Prénom :</span> {{ user.firstName }}</div>
+      <div><span> Numéro de téléphone :</span> {{ user.phone }}</div>
     </div>
   </template>
 </template>
