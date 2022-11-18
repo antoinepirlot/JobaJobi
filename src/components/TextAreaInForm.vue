@@ -14,6 +14,9 @@ defineProps({
   cols: {
     type: String,
   },
+  modelValue: {
+    type: String
+  }
 });
 </script>
 
@@ -25,6 +28,8 @@ defineProps({
       v-bind:id="name"
       v-bind:rows="rows"
       v-bind:cols="cols"
+      v-bind:value="modelValue"
+      @input="$emit('update:modelValue', $event.target.value)"
       required
     >
     </textarea>
