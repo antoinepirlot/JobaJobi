@@ -59,7 +59,7 @@ async function signup(e) {
     errorMessage.value = "Missing Type";
     return;
   }
-  if (!utils.checkPassword(password, confirmPassword)) {
+  if (!utils.checkPassword(password.value, confirmPassword.value)) {
     errorMessage.value = "Passwords don't match";
     return;
   }
