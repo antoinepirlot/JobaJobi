@@ -5,10 +5,22 @@ import SelectInForm from "@/components/SelectInForm.vue";
 import router from "@/router";
 
 const options = ["Particulier", "Entreprise"];
-const selectedOption = ref(options[0])
+const selectedOption = ref(options[0]);
+
+//Form values
+const firstName = ref("");
+const name = ref("");
+const birthday = ref(null);
+const password = ref("");
+const confirmPassword = ref("");
+const type = ref("");
 
 function goToConnectionPage() {
   router.push("/login")
+}
+
+function signup(e) {
+  console.log()
 }
 </script>
 
@@ -22,7 +34,7 @@ function goToConnectionPage() {
     <input-in-form type-input="password" label-name="Mot de passe" name="password"/>
     <input-in-form type-input="password" label-name="Confirmer le mot de passe" name="confirm_password"/>
     <SelectInForm v-bind:options="options" label-name="Type utilisateur" name="type"/>
-    <input id="submit_signup" type="submit" value="S'inscrire">
+    <input @click="signup" id="submit_signup" type="submit" value="S'inscrire">
   </form>
   <p>Déjà un compte? <button @click="goToConnectionPage">Connexion</button></p>
 </template>
