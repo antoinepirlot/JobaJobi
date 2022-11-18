@@ -7,18 +7,18 @@ import SubmitButtonInFormVue from "../components/SubmitButtonInForm.vue";
 import router from "../router/index.js";
 
 const titleClass = ref("Créer une offre d'emploi");
-const typesContract = ["CDI", "CDD", "Stage non rémunéré", "Stage rémunéré"];
-let offerTitle;
-let mailContact;
-let typeContract = typesContract[0];
-let description;
+const typesContract = ref(["CDI", "CDD", "Stage non rémunéré", "Stage rémunéré"]);
+const offerTitle = ref("");
+const mailContact = ref("");
+const typeContract = ref(typesContract.value[0]);
+const description = ref("");
 const addJobOffer = (e) => {
   e.preventDefault();
   const newJobOffer = {
-    title: offerTitle,
-    contactMail: mailContact,
-    contractType: typeContract,
-    description: description,
+    title: offerTitle.value,
+    contactMail: mailContact.value,
+    contractType: typeContract.value,
+    description: description.value,
     idCompany: 1, //TODO : changer l'id
   };
   addJobOfferToBackend(newJobOffer);
