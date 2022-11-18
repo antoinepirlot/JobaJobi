@@ -68,14 +68,35 @@ function signup(e) {
 
 <template>
   <form>
-    <InputInForm type-input="text" label-name="Nom" name="lastname"/>
-    <InputInForm type-input="text" label-name="Prénom" name="firstname"/>
-    <InputInForm type-input="date" label-name="Date de naissance" name="birthday"/>
-    <InputInForm type-input="tel" label-name="Numéro de téléphone" name="phone"/>
-    <input-in-form type-input="email" label-name="Adresse email" name="email"/>
-    <input-in-form type-input="password" label-name="Mot de passe" name="password"/>
-    <input-in-form type-input="password" label-name="Confirmer le mot de passe" name="confirm_password"/>
-    <SelectInForm v-bind:options="options" label-name="Type utilisateur" name="type"/>
+    <InputInForm v-model="lastName" type-input="text" label-name="Nom" name="lastname"/>
+    <InputInForm v-model="firstName" type-input="text" label-name="Prénom" name="firstname"/>
+    <InputInForm
+        v-model="birthday"
+        type-input="date"
+        label-name="Date de naissance"
+        name="birthday"
+    />
+    <InputInForm v-model="phone" type-input="tel" label-name="Numéro de téléphone" name="phone"/>
+    <InputInForm v-model="email" type-input="email" label-name="Adresse email" name="email"/>
+    <InputInForm
+        v-model="password"
+        type-input="password"
+        label-name="Mot de passe"
+        name="password"
+    />
+    <InputInForm
+        v-model="confirmPassword"
+        type-input="password"
+        label-name="Confirmer le mot de passe"
+        name="confirm_password"
+    />
+    <InputInForm
+        v-model="type"
+        type-input="list"
+        v-bind:options="options"
+        label-name="Type utilisateur"
+        name="type"
+    />
     <input @click="signup" id="submit_signup" type="submit" value="S'inscrire">
     <ErrorMessage v-if="errorMessage !== ''" :error-message="errorMessage"/>
   </form>
