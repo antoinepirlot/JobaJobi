@@ -17,5 +17,5 @@ async function signup(user) {
 }
 
 export default {
-  signUp: signup,
+  signup,
 };

@@ -72,7 +72,7 @@ async function signup(e) {
     type: type.value
   }
   try {
-    await api_requests.signUp(user);
+    await api_requests.signup(user);
   } catch (e) {
     console.error(e.message);
   }
