@@ -1,5 +1,4 @@
 async function signup(user) {
-  console.log(user)
   const request = {
     method: "POST",
     body: JSON.stringify(user),
