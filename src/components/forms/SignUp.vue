@@ -61,6 +61,7 @@ async function signup(e) {
   }
   if (!utils.checkPassword(password, confirmPassword)) {
     errorMessage.value = "Passwords don't match";
+    return;
   }
   const user = {
     firstName: firstName.value,
