@@ -3,6 +3,7 @@ import {ref} from "vue";
 import InputInForm from "@/components/InputInForm.vue";
 import SelectInForm from "@/components/SelectInForm.vue";
 import router from "@/router";
+import ErrorMessage from "@/components/ErrorMessage.vue";
 import utils from "@/utils/utils";
 
 const options = ["Particulier", "Entreprise"];
@@ -17,6 +18,7 @@ const email = ref("");
 const password = ref("");
 const confirmPassword = ref("");
 const type = ref("");
+let errorMessage = ref("");
 
 function goToConnectionPage() {
   router.push("/login")
@@ -75,6 +77,7 @@ function signup(e) {
     <input-in-form type-input="password" label-name="Confirmer le mot de passe" name="confirm_password"/>
     <SelectInForm v-bind:options="options" label-name="Type utilisateur" name="type"/>
     <input @click="signup" id="submit_signup" type="submit" value="S'inscrire">
+    <ErrorMessage v-if="errorMessage !== ''" :error-message="errorMessage"/>
   </form>
   <p>Déjà un compte? <button @click="goToConnectionPage">Connexion</button></p>
 </template>
