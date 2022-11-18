@@ -3,14 +3,17 @@ import {ref} from "vue";
 import InputInForm from "@/components/InputInForm.vue";
 import SelectInForm from "@/components/SelectInForm.vue";
 import router from "@/router";
+import utils from "@/utils/utils";
 
 const options = ["Particulier", "Entreprise"];
 const selectedOption = ref(options[0]);
 
 //Form values
+const lastName = ref("");
 const firstName = ref("");
-const name = ref("");
 const birthday = ref(null);
+const phone = ref("");
+const email = ref("");
 const password = ref("");
 const confirmPassword = ref("");
 const type = ref("");
@@ -20,7 +23,44 @@ function goToConnectionPage() {
 }
 
 function signup(e) {
-  console.log()
+  e.preventDefault();
+  errorMessage.value = "";
+  if(lastName.value === "") {
+    errorMessage.value = "Missing lastname";
+    return;
+  }
+  if(firstName.value === "") {
+    errorMessage.value = "Missing firstName";
+    return;
+  }
+  if(birthday.value === null) {
+    errorMessage.value = "Missing birthday";
+    return;
+  }
+  if(phone.value === "") {
+    errorMessage.value = "Missing phone";
+    return;
+  }
+  if(email.value === "") {
+    errorMessage.value = "Missing email";
+    return;
+  }
+  if(password.value === "") {
+    errorMessage.value = "Missing password";
+    return;
+  }
+  if(confirmPassword.value === "") {
+    errorMessage.value = "Missing Confirmation Password";
+    return;
+  }
+  if(type.value === "") {
+    errorMessage.value = "Missing Type";
+    return;
+  }
+  if(!utils.checkPassword(password, confirmPassword)) {
+    errorMessage.value = "Passwords don't match";
+  }
+
 }
 </script>
 
