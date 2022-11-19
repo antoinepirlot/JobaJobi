@@ -11,6 +11,11 @@ const email = ref('')
 const password = ref('')
 const notification = ref('')
 
+const goToSignUpPage = () => {
+  router.push("/signup")
+  return;
+};
+
 const login = async (e) => {
   e.preventDefault();
   const user = {
@@ -62,8 +67,10 @@ const loginToBackend = async (user) => {
                 labelName="Mot de passe"
                 typeInput="password"
                 v-model="password"
-            />
+            />  
             <NotificationSpanVue :notificationName="notification" color="red"/>
+            <span>Pas encore de compte ? </span>
+            <span @click="goToSignUpPage" id="goToSignUpPage">Inscription</span>
             <SubmitButtonInFormVue name="Se connecter" />
         </form>
     </div>
@@ -72,10 +79,14 @@ const loginToBackend = async (user) => {
 <style>
     .centerWithBorder {
     text-align: center;
-    line-height: 3em;
+    line-height: 2.5em;
     border: 2px solid black;
     margin-left: 30%;
     margin-right: 30%;
+    }
+
+    #goToSignUpPage{
+        text-decoration: underline;
     }
 
 </style>
