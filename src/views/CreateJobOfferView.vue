@@ -7,13 +7,20 @@ import SubmitButtonInFormVue from "../components/SubmitButtonInForm.vue";
 import router from "../router/index.js";
 
 const titleClass = ref("Créer une offre d'emploi");
-const typesContract = ref(["CDI", "CDD", "Stage non rémunéré", "Stage rémunéré"]);
+const typesContract = ref([
+  "CDI",
+  "CDD",
+  "Stage non rémunéré",
+  "Stage rémunéré",
+]);
 const offerTitle = ref("");
 const mailContact = ref("");
 const typeContract = ref(typesContract.value[0]);
 const description = ref("");
+
 const addJobOffer = (e) => {
   e.preventDefault();
+  //TODO : verify empty fields
   const newJobOffer = {
     title: offerTitle.value,
     contactMail: mailContact.value,
@@ -33,6 +40,7 @@ const addJobOfferToBackend = async (newJobOffer) => {
       body: JSON.stringify(newJobOffer),
       headers: {
         "Content-Type": "application/json",
+        //TODO : add authorization
       },
     };
     const response = await fetch("/api/jobOffers/create", options);
