@@ -3,9 +3,13 @@ import { ref } from "vue";
 import router from "../router/index.js";
 import InputInFormVue from "../components/InputInForm.vue";
 import SubmitButtonInFormVue from "../components/SubmitButtonInForm.vue";
+import NotificationSpanVue from "../components/NotificationSpan.vue";
+
+if(localStorage.token) router.push("/");
 
 const email = ref('')
 const password = ref('')
+const notification = ref('')
 
 const login = async (e) => {
   e.preventDefault();
@@ -14,8 +18,9 @@ const login = async (e) => {
     password: password.value
   };
   const newUser = await loginToBackend(user);
-  //router.push("/");
-  console.log(newUser);
+  if(!newUser) return;
+  localStorage.token=newUser.token;
+  router.push("/");
   return;
 };
 
@@ -30,9 +35,8 @@ const loginToBackend = async (user) => {
     };
     const response = await fetch("/api/auths/login", options);
     if (!response.ok) {
-      throw new Error(
-        "fetch error : " + response.status + " : " + response.statusText
-      );
+      if(response.status===401) notification.value="L'adresse email ou le mot de passe est incorrect";
+      return;
     }
     return await response.json();
   } catch (err) {
@@ -42,27 +46,36 @@ const loginToBackend = async (user) => {
 </script>
 
 <template>
-    <h1 class="centerFormElements">Connexion</h1>
+    
 
-    <form @submit="login" id="formLogin">
-        <InputInFormVue
-            class="centerFormElements"
-            name="email"
-            labelName="Adresse email"
-            typeInput="text"
-            v-model="email"
-        />
-        <InputInFormVue
-            class="centerFormElements"
-            name="password"
-            labelName="Mot de passe"
-            typeInput="password"
-            v-model="password"
-        />
-        <SubmitButtonInFormVue class="centerFormElements" name="Se connecter" />
-    </form>
+    <div class="centerWithBorder">
+        <h1>Connexion</h1>
+        <form @submit="login" id="formLogin">
+            <InputInFormVue
+                name="email"
+                labelName="Adresse email"
+                typeInput="text"
+                v-model="email"
+            />
+            <InputInFormVue
+                name="password"
+                labelName="Mot de passe"
+                typeInput="password"
+                v-model="password"
+            />
+            <NotificationSpanVue :notificationName="notification" color="red"/>
+            <SubmitButtonInFormVue name="Se connecter" />
+        </form>
+    </div>
 </template>
 
 <style>
+    .centerWithBorder {
+    text-align: center;
+    line-height: 3em;
+    border: 2px solid black;
+    margin-left: 30%;
+    margin-right: 30%;
+    }
 
 </style>
