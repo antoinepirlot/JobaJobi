@@ -87,6 +87,7 @@ const loginToBackend = async (user) => {
 
     #goToSignUpPage{
         text-decoration: underline;
+        cursor: pointer;
     }
 
 </style>
