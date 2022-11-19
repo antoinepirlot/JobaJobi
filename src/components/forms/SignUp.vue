@@ -5,9 +5,9 @@ import router from "@/router";
 import ErrorMessage from "@/components/ErrorMessage.vue";
 import utils from "@/utils/utils";
 import api_requests from "@/utils/api_requests";
+import SelectInForm from "@/components/SelectInForm.vue";
 
 const options = ["Particulier", "Entreprise"];
-const selectedOption = ref(options[0]);
 
 //Form values
 const lastName = ref("");
@@ -17,15 +17,21 @@ const phone = ref("");
 const email = ref("");
 const password = ref("");
 const confirmPassword = ref("");
-const type = ref("");
+const type = ref(options[0]);
+const stayConencted = ref(false);
 let errorMessage = ref("");
 
 function goToConnectionPage() {
   router.push("/login")
 }
 
+function toggleStayConnected() {
+  stayConencted.value = !stayConencted.value;
+}
+
 async function signup(e) {
   e.preventDefault();
+  console.log(lastName.value)
   errorMessage.value = "";
   if (lastName.value === "") {
     errorMessage.value = "Missing lastname";
@@ -73,11 +79,17 @@ async function signup(e) {
     type: type.value
   }
   try {
-    await api_requests.signup(user);
+    const token = await api_requests.signup(user);
+    console.log(stayConencted.value)
+    if(stayConencted.value) {
+      window.sessionStorage.setItem("token", JSON.stringify(token));
+    } else {
+      window.localStorage.setItem("token", JSON.stringify(token));
+    }
   } catch (e) {
     console.error(e.message);
   }
-  goToConnectionPage();
+  await router.push("/");
 }
 </script>
 
@@ -105,13 +117,8 @@ async function signup(e) {
         label-name="Confirmer le mot de passe"
         name="confirm_password"
     />
-    <InputInForm
-        v-model="type"
-        type-input="list"
-        v-bind:options="options"
-        label-name="Type utilisateur"
-        name="type"
-    />
+    <SelectInForm v-model="type" label-name="Type d'utilisateur"  name="type_list" v-bind:options="options"/>
+    <InputInForm @click="toggleStayConnected" type-input="checkbox" label-name="Rester connecter" name="stay_connected"/>
     <input @click="signup" id="submit_signup" type="submit" value="S'inscrire">
     <ErrorMessage v-if="errorMessage !== ''" :error-message="errorMessage"/>
   </form>
