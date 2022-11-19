@@ -59,7 +59,7 @@ const loginToBackend = async (user) => {
             <InputInFormVue
                 name="email"
                 labelName="Adresse email"
-                typeInput="text"
+                typeInput="email"
                 v-model="email"
             />
             <InputInFormVue
@@ -68,9 +68,11 @@ const loginToBackend = async (user) => {
                 typeInput="password"
                 v-model="password"
             />  
+            <div>
+                <span>Pas encore de compte ? </span>
+                <span @click="goToSignUpPage" id="goToSignUpPage">Inscription</span>
+            </div>
             <NotificationSpanVue :notificationName="notification" color="red"/>
-            <span>Pas encore de compte ? </span>
-            <span @click="goToSignUpPage" id="goToSignUpPage">Inscription</span>
             <SubmitButtonInFormVue name="Se connecter" />
         </form>
     </div>
