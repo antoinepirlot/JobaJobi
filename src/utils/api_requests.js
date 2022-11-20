@@ -1,3 +1,22 @@
+import utils from "@/utils/utils";
+
+async function getFavorites(userId) {
+  const request = {
+    method: "GET",
+    headers: {
+      "Authorize": utils.getToken(),
+      "Content-Type": "application/json"
+    }
+  }
+  const response = await fetch(`/api/jobOffers/favorites/${userId}`, request);
+  if (!response.ok) {
+    throw new Error(
+        "fetch error : " + response.status + " : " + response.statusText
+    );
+  }
+  return await response.json();
+}
+
 async function getInterestedByIdJobOffer(id) {
   try {
     const options = {
@@ -79,6 +98,7 @@ async function signup(user) {
 
 
 export default {
+  getFavorites,
   getInterestedByIdJobOffer,
   getJobOfferById,
   getUserByToken,

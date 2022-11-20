@@ -31,7 +31,6 @@ function toggleStayConnected() {
 
 async function signup(e) {
   e.preventDefault();
-  console.log(lastName.value)
   errorMessage.value = "";
   if (lastName.value === "") {
     errorMessage.value = "Missing lastname";
@@ -80,7 +79,6 @@ async function signup(e) {
   }
   try {
     const token = await api_requests.signup(user);
-    console.log(stayConencted.value)
     if(stayConencted.value) {
       window.sessionStorage.setItem("token", JSON.stringify(token));
     } else {
