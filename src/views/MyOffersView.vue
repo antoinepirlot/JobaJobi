@@ -3,7 +3,12 @@ import OfferCardVue from "../components/OfferCard.vue";
 import { ref } from "vue";
 import router from "../router/index.js";
 
+if(!localStorage.token) router.push("/login");
+
 const titleClass = ref("Mes offres d'emplois");
+const user = ref();
+const idJobOffer = ref(1);
+
 const getUserFromSessionBackend = async () => {
   try {
     const options = {
@@ -19,13 +24,14 @@ const getUserFromSessionBackend = async () => {
         "fetch error : " + response.status + " : " + response.statusText
       );
     }
-    return await response.json();
+    user.value=await response.json();
   } catch (err) {
     console.error("error: ", err);
   }
 };
-const userSession = ref(await getUserFromSessionBackend());
-console.log(userSession.value);
+await getUserFromSessionBackend();
+
+
 </script>
 
 <template>
@@ -36,7 +42,7 @@ console.log(userSession.value);
           offertitle="test"
           offer-description="description"
           offer-type="contractType"
-          id="idJobOffer"
+          :id="idJobOffer"
         />
     </div>
   </div>
