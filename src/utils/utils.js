@@ -15,6 +15,21 @@ function checkPassword(password1, password2) {
 }
 
 /**
+ * Get the token from the storage
+ * @return {null|any} the token, null if not token is stored.
+ */
+function getToken() {
+  let token = window.localStorage.getItem("token");
+  if(!!token) {
+    token = window.sessionStorage.getItem("token");
+    if (!!token) {
+      return null;
+    }
+  }
+  return JSON.parse(token);
+}
+
+/**
  * Check if the user is connected and return true or false
  * @return {boolean} true if the user is connected, otherwise false
  */
@@ -25,5 +40,6 @@ function isConnected() {
 
 export default {
   checkPassword,
+  getToken,
   isConnected,
 };
