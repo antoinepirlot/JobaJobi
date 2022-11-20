@@ -1,3 +1,43 @@
+async function getInterestedByIdJobOffer(id) {
+  try {
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const response = await fetch("/api/jobOffers/getAllInterested/"+id, options);
+    if (!response.ok) {
+      throw new Error(
+        "fetch error : " + response.status + " : " + response.statusText
+      );
+    }
+    return await response.json();
+  } catch (err) {
+    console.error("error: ", err);
+  }
+};
+
+async function getJobOfferById(id) {
+  try {
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const response = await fetch("/api/jobOffers/id/"+id, options);
+    if (!response.ok) {
+      throw new Error(
+        "fetch error : " + response.status + " : " + response.statusText
+      );
+    }
+    return await response.json();
+  } catch (err) {
+    console.error("error: ", err);
+  }
+};
+
 async function signup(user) {
   const request = {
     method: "POST",
@@ -15,6 +55,10 @@ async function signup(user) {
   return await response.json();
 }
 
+
+
 export default {
+  getInterestedByIdJobOffer,
+  getJobOfferById,
   signup,
 };

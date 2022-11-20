@@ -1,39 +1,29 @@
 <script async setup>
 import { ref, reactive } from "vue";
+import ListInterested from "@/components/ListInterested.vue"
 import router from "../router/index.js";
-const getOfferFromBackend = async (id) => {
-  try {
-    const options = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    const response = await fetch("/api/jobOffers/id/"+id, options);
-    if (!response.ok) {
-      throw new Error(
-        "fetch error : " + response.status + " : " + response.statusText
-      );
-    }
-    return await response.json();
-  } catch (err) {
-    console.error("error: ", err);
-  }
-};
-let offer = await getOfferFromBackend(router.currentRoute.value.params.id)
+import api_requests from "@/utils/api_requests";
+
+const offer = await api_requests.getJobOfferById(router.currentRoute.value.params.id);
 console.log(offer)
-let date = "Aujourd'hui" //TODO : insérer vrai date
+const isCompanyOwnerOfJobOffer = true; //TODO : change call the back with the token
+let allInterested = [];
+if(isCompanyOwnerOfJobOffer){
+  allInterested = await api_requests.getInterestedByIdJobOffer(router.currentRoute.value.params.id);
+  console.log(allInterested)
+}
+
 </script>
 
 <template>
-    <h1>Job Offer Details</h1>
     <h1>{{offer.title}}</h1>
-    <h4>Date de publication : {{date}}</h4>
+    <h4>Date de publication : {{offer.publicationDate}}</h4>
     <h4>Description de l'entreprise : </h4>
-    <p>Insérer paragraphe entreprise</p>
-    <p>Insérer infos entreprise</p>
+    <p>Insérer paragraphe entreprise</p> <!-- TODO -->
+    <p>Insérer infos entreprise</p> <!-- TODO -->
     <h4>Description de l'offre : </h4>
     <p>{{offer.description}}</p>
     <h4>Mail de contact : {{offer.contactMail}}</h4>
-    <!--TODO insérer liste des intéressés SI c'est l'entreprise qui a publié l'offre-->
+    <!-- TODO : add button to mark interest-->
+    <ListInterested v-if="isCompanyOwnerOfJobOffer" v-bind:allInterested="allInterested"/>
 </template>
