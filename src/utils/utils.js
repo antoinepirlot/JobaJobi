@@ -14,6 +14,16 @@ function checkPassword(password1, password2) {
       && password1 === password2;
 }
 
+/**
+ * Check if the user is connected and return true or false
+ * @return {boolean} true if the user is connected, otherwise false
+ */
+function isConnected() {
+  return !!window.localStorage.getItem("token")
+      || !!window.sessionStorage.getItem("token");
+}
+
 export default {
   checkPassword,
+  isConnected,
 };
