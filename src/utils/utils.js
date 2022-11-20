@@ -57,7 +57,7 @@ function store(itemName, item, localStorage) {
 
 export default {
   checkPassword,
-  getToken: getItem,
+  getItem,
   isConnected,
   store,
 };
