@@ -2,10 +2,18 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import CreateJobOfferView from '../views/CreateJobOfferView.vue'
 import JobOfferDetailsView from '../views/JobOfferDetailsView.vue'
+import LoginView from '../views/LoginView.vue'
+import SignUpView from '../views/SignUpView.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: "/:catchAll(.*)",
+      name: "not found",
+      component: HomeView
+    },
     {
       path: '/',
       name: 'home',
@@ -29,6 +37,16 @@ const router = createRouter({
       name: 'jobOfferDetails',
       component: JobOfferDetailsView
     },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginView
+    },
+    {
+      path: '/signup',
+      name: 'sign up',
+      component: SignUpView
+    }
   ]
 })
 

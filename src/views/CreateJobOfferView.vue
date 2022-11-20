@@ -6,19 +6,37 @@ import TextAreaInFormVue from "../components/TextAreaInForm.vue";
 import SubmitButtonInFormVue from "../components/SubmitButtonInForm.vue";
 import router from "../router/index.js";
 
-const titleClass = ref("Créer une offre d'emploi");
+const titleClass = "Créer une offre d'emploi";
 const typesContract = ["CDI", "CDD", "Stage non rémunéré", "Stage rémunéré"];
-let offerTitle;
-let mailContact;
-let typeContract = typesContract[0];
-let description;
+const offerTitle = ref("");
+const mailContact = ref("");
+const typeContract = ref(typesContract[0]);
+const description = ref("");
+const isVisible = ref(false);
+
+const fieldsContainsEmpty = () => {
+  const tabFields = [offerTitle, mailContact, typeContract, description];
+  for (let i = 0; i < tabFields.length; i++) {
+    if (tabFields[i].value.trim().length === 0) {
+      return true;
+    }
+  }
+  return false;
+};
+
 const addJobOffer = (e) => {
   e.preventDefault();
+  //Verify empty fields
+  if (fieldsContainsEmpty()) {
+    isVisible.value = true;
+    return;
+  }
+  //create the new job offer
   const newJobOffer = {
-    title: offerTitle,
-    contactMail: mailContact,
-    contractType: typeContract,
-    description: description,
+    title: offerTitle.value,
+    contactMail: mailContact.value,
+    contractType: typeContract.value,
+    description: description.value,
     idCompany: 1, //TODO : changer l'id
   };
   addJobOfferToBackend(newJobOffer);
@@ -33,6 +51,7 @@ const addJobOfferToBackend = async (newJobOffer) => {
       body: JSON.stringify(newJobOffer),
       headers: {
         "Content-Type": "application/json",
+        //TODO : add authorization
       },
     };
     const response = await fetch("/api/jobOffers/create", options);
@@ -81,11 +100,18 @@ const addJobOfferToBackend = async (newJobOffer) => {
       cols="50"
       v-model="description"
     />
+    <p v-if="isVisible" id="errorMsgFormCreate" class="centerFormElements">
+      Vous devez remplir tous les champs du formulaire
+    </p>
     <SubmitButtonInFormVue class="centerFormElements" name="Créer" />
   </form>
 </template>
 
 <style>
+#errorMsgFormCreate {
+  color: red;
+}
+
 .centerFormElements {
   padding-inline: 33%;
   line-height: 2em;
