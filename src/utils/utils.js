@@ -38,8 +38,25 @@ function isConnected() {
       || !!window.sessionStorage.getItem("token");
 }
 
+/**
+ * Stringify the item and stores it in the itemName on the local or session storage.
+ * @param itemName the item's name emplacement
+ * @param item the item to stores
+ * @param localStorage true if the item must be placed in the local storage,
+ * false for the session storage.
+ */
+function store(itemName, item, localStorage) {
+  item = JSON.stringify(item);
+  if(localStorage) {
+    window.localStorage.setItem(itemName, item);
+  } else {
+    window.sessionStorage.setItem(itemName, item);
+  }
+}
+
 export default {
   checkPassword,
   getToken,
   isConnected,
+  store,
 };
