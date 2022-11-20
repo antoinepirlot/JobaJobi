@@ -1,7 +1,8 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import CreateJobOfferView from '../views/CreateJobOfferView.vue'
-import SignUpView from '../views/SignUpView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import CreateJobOfferView from '../views/CreateJobOfferView.vue';
+import SignUpView from '../views/SignUpView.vue';
+import LogoutView from '../views/LogoutView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,6 +34,11 @@ const router = createRouter({
       path: '/signup',
       name: 'sign up',
       component: SignUpView
+    },
+    {
+      path: "/logout",
+      name: "logout",
+      component: LogoutView
     }
   ]
 })
