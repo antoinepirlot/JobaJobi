@@ -15,18 +15,19 @@ function checkPassword(password1, password2) {
 }
 
 /**
- * Get the token from the storage
- * @return {null|any} the token, null if not token is stored.
+ * Get the item from the storage.
+ * @param itemName the item's name
+ * @return {null|any} the item, null if no item with itemName is stored.
  */
-function getToken() {
-  let token = window.localStorage.getItem("token");
-  if(!!token) {
-    token = window.sessionStorage.getItem("token");
-    if (!!token) {
+function getItem(itemName) {
+  let item = window.localStorage.getItem(itemName);
+  if(!!item) {
+    item = window.sessionStorage.getItem(itemName);
+    if (!!item) {
       return null;
     }
   }
-  return JSON.parse(token);
+  return JSON.parse(item);
 }
 
 /**
@@ -56,7 +57,7 @@ function store(itemName, item, localStorage) {
 
 export default {
   checkPassword,
-  getToken,
+  getToken: getItem,
   isConnected,
   store,
 };
