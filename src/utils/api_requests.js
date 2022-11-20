@@ -38,6 +38,27 @@ async function getJobOfferById(id) {
   }
 };
 
+async function getUserByToken() {
+  try {
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": localStorage.getItem("token")
+      },
+    };
+    const response = await fetch("/api/users/getUserSession/", options);
+    if (!response.ok) {
+      throw new Error(
+        "fetch error : " + response.status + " : " + response.statusText
+      );
+    }
+    return await response.json();
+  } catch (err) {
+    console.error("error: ", err);
+  }
+};
+
 async function signup(user) {
   const request = {
     method: "POST",
@@ -60,5 +81,6 @@ async function signup(user) {
 export default {
   getInterestedByIdJobOffer,
   getJobOfferById,
+  getUserByToken,
   signup,
 };
