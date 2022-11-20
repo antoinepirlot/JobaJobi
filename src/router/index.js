@@ -49,10 +49,17 @@ const router = createRouter({
     },
     {
       path: "/myOffers",
-      name: "my offers",
+      name: "myOffers",
       component: MyOffersView,
+      meta: {
+        requiresAuth: true
+      }
     },
   ],
 });
+
+router.beforeEach(async (to, from) => {
+  if(to.meta.requiresAuth && !localStorage.getItem("token")) return { name: 'login' }
+})
 
 export default router;

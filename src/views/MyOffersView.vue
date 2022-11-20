@@ -3,34 +3,34 @@ import OfferCardVue from "../components/OfferCard.vue";
 import { ref } from "vue";
 import router from "../router/index.js";
 
-if(!localStorage.token) router.push("/login");
 
 const titleClass = ref("Mes offres d'emplois");
 const user = ref();
 const idJobOffer = ref(1);
 
 const getUserFromSessionBackend = async () => {
-  try {
+try {
     const options = {
-      method: "GET",
-      headers: {
+    method: "GET",
+    headers: {
         "Content-Type": "application/json",
         'Authorization': localStorage.getItem('token')
-      },
+    },
     };
     const response = await fetch("/api/users/getUserSession", options);
     if (!response.ok) {
         throw new Error(
         "fetch error : " + response.status + " : " + response.statusText
-      );
+    );
     }
     user.value=await response.json();
-  } catch (err) {
+} catch (err) {
     console.error("error: ", err);
-  }
+}
 };
 await getUserFromSessionBackend();
 
+if(user.value.type!=="Entreprise") router.push("/");
 
 </script>
 
