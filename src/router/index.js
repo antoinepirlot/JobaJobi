@@ -4,6 +4,7 @@ import CreateJobOfferView from "../views/CreateJobOfferView.vue";
 import HomePageView from "../views/HomePageView.vue";
 import LoginView from "../views/LoginView.vue";
 import SignUpView from "../views/SignUpView.vue";
+import LogoutView from '../views/LogoutView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,7 +17,7 @@ const router = createRouter({
     {
       path: "/",
       name: "home",
-      component: HomeView,
+      component: HomePageView,
     },
     {
       path: "/about",
@@ -32,11 +33,6 @@ const router = createRouter({
       component: CreateJobOfferView,
     },
     {
-      path: "/homePage",
-      name: "homePage",
-      component: HomePageView,
-    },
-    {
       path: "/login",
       name: "login",
       component: LoginView,
@@ -46,6 +42,11 @@ const router = createRouter({
       name: "sign up",
       component: SignUpView,
     },
+    {
+      path: "/logout",
+      name: "logout",
+      component: LogoutView
+    }
   ],
 });
 
