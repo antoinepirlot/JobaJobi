@@ -13,40 +13,6 @@ const token = localStorage.getItem("token");
 const emit = defineEmits(["onButtonClick", "onIntrestedClick"]);
 
 const isIntrested = ref(null);
-const user = ref([]);
-
-const getUserFromSession = async () => {
-  //Set the header of the request
-  const header = new Headers();
-  header.append("Content-Type", "application/json");
-  header.append(
-    "Authorization",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZhY2Vib2tAZ21haWwuY29tIiwiaWF0IjoxNjY4Nzg0Mzg3LCJleHAiOjE3NTUxODQzODd9.39V_8TOGeop3GMDPqOrDVo431iyFkwdxMwFmIVcKrcA"
-  );
-  //Set the options of the request
-  const options = {
-    method: "GET",
-    headers: header,
-  };
-  await fetch("/api/users/getUserSession", options)
-    .then(async (response) => {
-      const data = await response.json();
-      // check for error response
-      if (!response.ok) {
-        // get error message from body or default to response statusText
-        throw new Error(
-          "fetch error : " + response.status + " : " + response.statusText
-        );
-      }
-      //Assign the data to the user ref
-      user.value = data;
-    })
-    .catch((error) => {
-      console.error("There was an error : ", error);
-    });
-};
-
-getUserFromSession();
 
 const onButtonClick = () => {
   emit("onButtonClick", props.id);
