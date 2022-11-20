@@ -2,7 +2,7 @@
 import SignUp from "@/components/forms/SignUp.vue";
 import utils from "@/utils/utils";
 import router from "@/router";
-if(!utils.isConnected()) {
+if(utils.isConnected()) {
   router.push("/");
 }
 </script>
