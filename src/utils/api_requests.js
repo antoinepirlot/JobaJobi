@@ -10,7 +10,7 @@ async function getFavorites() {
       "Content-Type": "application/json"
     }
   }
-  const response = await fetch(`/api/jobOffers/favorites`, request);
+  const response = await fetch(`/api/users/favorites`, request);
   if (!response.ok) {
     throw new Error(
         "fetch error : " + response.status + " : " + response.statusText

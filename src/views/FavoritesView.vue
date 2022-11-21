@@ -2,6 +2,7 @@
 import {ref} from "vue";
 import router from "@/router";
 import api_requests from "@/utils/api_requests";
+import Favorite from "@/components/Favorite.vue";
 
 // if(!utils.isConnected()) {
 //   router.push("/login")
@@ -14,4 +15,5 @@ const favorites = ref([]);
 
 <template>
   <h1>Vos offres d'emplois favorites</h1>
+  <Favorite/>
 </template>
