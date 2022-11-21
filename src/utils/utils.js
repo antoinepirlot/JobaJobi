@@ -15,19 +15,19 @@ function checkPassword(password1, password2) {
 }
 
 /**
- * Get the item from the storage.
- * @param itemName the item's name
- * @return {null|any} the item, null if no item with itemName is stored.
+ * get the item from local or session storage.
+ * @param itemName the name of the item to return.
+ * @returns {item} the item if found in the storage otherwise raises an error.
  */
 function getItem(itemName) {
-  let item = window.localStorage.getItem(itemName);
-  if(!!item) {
-    item = window.sessionStorage.getItem(itemName);
-    if (!!item) {
-      return null;
+  let item = localStorage.getItem(itemName);
+  if(!item) {
+    item = sessionStorage.getItem(itemName);
+    if(!item) {
+      throw new Error("No token");
     }
   }
-  return JSON.parse(item);
+  return item;
 }
 
 /**
@@ -39,25 +39,8 @@ function isConnected() {
       || !!window.sessionStorage.getItem("token");
 }
 
-/**
- * Stringify the item and stores it in the itemName on the local or session storage.
- * @param itemName the item's name emplacement
- * @param item the item to stores
- * @param localStorage true if the item must be placed in the local storage,
- * false for the session storage.
- */
-function store(itemName, item, localStorage) {
-  item = JSON.stringify(item);
-  if(localStorage) {
-    window.localStorage.setItem(itemName, item);
-  } else {
-    window.sessionStorage.setItem(itemName, item);
-  }
-}
-
 export default {
   checkPassword,
   getItem,
   isConnected,
-  store,
 };

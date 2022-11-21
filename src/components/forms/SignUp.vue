@@ -6,6 +6,7 @@ import ErrorMessage from "@/components/ErrorMessage.vue";
 import utils from "@/utils/utils";
 import api_requests from "@/utils/api_requests";
 import SelectInForm from "@/components/SelectInForm.vue";
+import SubmitButtonInForm from "@/components/SubmitButtonInForm.vue";
 
 const options = ["Particulier", "Entreprise"];
 
@@ -80,9 +81,9 @@ async function signup(e) {
   try {
     const token = await api_requests.signup(user);
     if(stayConencted.value) {
-      window.sessionStorage.setItem("token", JSON.stringify(token));
+      window.sessionStorage.setItem("token", token);
     } else {
-      window.localStorage.setItem("token", JSON.stringify(token));
+      window.localStorage.setItem("token", token);
     }
   } catch (e) {
     console.error(e.message);
@@ -92,43 +93,41 @@ async function signup(e) {
 </script>
 
 <template>
-  <form>
-    <InputInForm v-model="lastName" type-input="text" label-name="Nom" name="lastname"/>
-    <InputInForm v-model="firstName" type-input="text" label-name="Prénom" name="firstname"/>
-    <InputInForm
-        v-model="birthday"
-        type-input="date"
-        label-name="Date de naissance"
-        name="birthday"
-    />
-    <InputInForm v-model="phone" type-input="tel" label-name="Numéro de téléphone" name="phone"/>
-    <InputInForm v-model="email" type-input="email" label-name="Adresse email" name="email"/>
-    <InputInForm
-        v-model="password"
-        type-input="password"
-        label-name="Mot de passe"
-        name="password"
-    />
-    <InputInForm
-        v-model="confirmPassword"
-        type-input="password"
-        label-name="Confirmer le mot de passe"
-        name="confirm_password"
-    />
-    <SelectInForm v-model="type" label-name="Type d'utilisateur"  name="type_list" v-bind:options="options"/>
-    <InputInForm @click="toggleStayConnected" type-input="checkbox" label-name="Rester connecter" name="stay_connected"/>
-    <input @click="signup" id="submit_signup" type="submit" value="S'inscrire">
-    <ErrorMessage v-if="errorMessage !== ''" :error-message="errorMessage"/>
-  </form>
-  <p>Déjà un compte?
-    <button @click="goToConnectionPage">Connexion</button>
-  </p>
+  <div class="form">
+    <h1>Inscription</h1>
+    <form>
+      <InputInForm v-model="lastName" type-input="text" label-name="Nom" name="lastname"/>
+      <InputInForm v-model="firstName" type-input="text" label-name="Prénom" name="firstname"/>
+      <InputInForm
+          v-model="birthday"
+          type-input="date"
+          label-name="Date de naissance"
+          name="birthday"
+      />
+      <InputInForm v-model="phone" type-input="tel" label-name="Numéro de téléphone" name="phone"/>
+      <InputInForm v-model="email" type-input="email" label-name="Adresse email" name="email"/>
+      <InputInForm
+          v-model="password"
+          type-input="password"
+          label-name="Mot de passe"
+          name="password"
+      />
+      <InputInForm
+          v-model="confirmPassword"
+          type-input="password"
+          label-name="Confirmer le mot de passe"
+          name="confirm_password"
+      />
+      <SelectInForm v-model="type" label-name="Type d'utilisateur"  name="type_list" v-bind:options="options"/>
+      <InputInForm @click="toggleStayConnected" type-input="checkbox" label-name="Rester connecter" name="stay_connected"/>
+      <SubmitButtonInForm @click="signup" name="S'inscrire"/>
+      <ErrorMessage v-if="errorMessage !== ''" :error-message="errorMessage"/>
+    </form>
+    <p>Déjà un compte?
+      <span @click="goToConnectionPage" class="goToAPage">Connexion</span>
+    </p>
+  </div>
 </template>
 
 <style>
-#submit_signup {
-  background-color: blue;
-  color: white;
-  border-radius: 30px;
-}
 </style>

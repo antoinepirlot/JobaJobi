@@ -53,7 +53,7 @@ const loginToBackend = async (user) => {
 <template>
     
 
-    <div class="centerWithBorder">
+    <div class="form">
         <h1>Connexion</h1>
         <form @submit="login" id="formLogin">
             <InputInFormVue
@@ -70,7 +70,7 @@ const loginToBackend = async (user) => {
             />  
             <div>
                 <span>Pas encore de compte ? </span>
-                <span @click="goToSignUpPage" id="goToSignUpPage">Inscription</span>
+                <span @click="goToSignUpPage" class="goToAPage">Inscription</span>
             </div>
             <NotificationSpanVue :notificationName="notification" color="red"/>
             <SubmitButtonInFormVue name="Se connecter" />
@@ -79,17 +79,6 @@ const loginToBackend = async (user) => {
 </template>
 
 <style>
-    .centerWithBorder {
-    text-align: center;
-    line-height: 2.5em;
-    border: 2px solid black;
-    margin-left: 30%;
-    margin-right: 30%;
-    }
 
-    #goToSignUpPage{
-        text-decoration: underline;
-        cursor: pointer;
-    }
 
 </style>
