@@ -1,6 +1,9 @@
 <script setup>
 import { ref, onMounted } from "vue";
 
+if (!localStorage.getItem("token")) {
+  router.push("/login");
+}
 let user = ref([]);
 
 //Get the token in the localStorage
@@ -58,7 +61,7 @@ onMounted(async () => {
   <template v-else>
     <div class="profile-display">
       <h1>Profil</h1>
-      <div><span>Nom :</span> {{ user.name }}</div>
+      <div><span>Nom :</span> {{ user.lastName }}</div>
       <div><span>Prénom :</span> {{ user.firstName }}</div>
       <div><span> Numéro de téléphone :</span> {{ user.phone }}</div>
     </div>
