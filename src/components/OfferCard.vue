@@ -28,15 +28,15 @@ const onIntrestedClick = () => {
   <div class="card">
     <div class="image"></div>
     <div class="title">
-      <h1>{{ offer.offerTitle }}</h1>
+      <h1>{{ offer.title }}</h1>
     </div>
     <button class="star" @click="onIntrestedClick">
       <span class="fa fa-star"></span>
     </button>
     <div class="des">
-      <h2>{{ !offer.offerType ? "Type de contrat non défini" : offer.offerType }}</h2>
+      <h2>{{ !offer.contractType ? "Type de contrat non défini" : offer.contractType }}</h2>
       <div class="description">
-        <p>{{ offer.offerDescription }}</p>
+        <p>{{ offer.description }}</p>
       </div>
 
       <button @click="onButtonClick">Voir plus</button>
