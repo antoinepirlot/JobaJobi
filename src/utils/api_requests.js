@@ -1,14 +1,16 @@
-import utils from "@/utils/utils";
-
-async function getFavorites(userId) {
+async function getFavorites() {
+  let token = localStorage.token;
+  if(!token) {
+    token = sessionStorage.token;
+  }
   const request = {
     method: "GET",
     headers: {
-      "Authorize": utils.getToken(),
+      "Authorize": token,
       "Content-Type": "application/json"
     }
   }
-  const response = await fetch(`/api/jobOffers/favorites/${userId}`, request);
+  const response = await fetch(`/api/jobOffers/favorites`, request);
   if (!response.ok) {
     throw new Error(
         "fetch error : " + response.status + " : " + response.statusText
