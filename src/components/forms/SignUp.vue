@@ -6,6 +6,7 @@ import ErrorMessage from "@/components/ErrorMessage.vue";
 import utils from "@/utils/utils";
 import api_requests from "@/utils/api_requests";
 import SelectInForm from "@/components/SelectInForm.vue";
+import SubmitButtonInForm from "@/components/SubmitButtonInForm.vue";
 
 const options = ["Particulier", "Entreprise"];
 
@@ -119,19 +120,14 @@ async function signup(e) {
       />
       <SelectInForm v-model="type" label-name="Type d'utilisateur"  name="type_list" v-bind:options="options"/>
       <InputInForm @click="toggleStayConnected" type-input="checkbox" label-name="Rester connecter" name="stay_connected"/>
-      <input @click="signup" id="submit_signup" type="submit" value="S'inscrire">
+      <SubmitButtonInForm @click="signup" name="S'inscrire"/>
       <ErrorMessage v-if="errorMessage !== ''" :error-message="errorMessage"/>
     </form>
     <p>Déjà un compte?
-      <button @click="goToConnectionPage">Connexion</button>
+      <span @click="goToConnectionPage" class="goToAPage">Connexion</span>
     </p>
   </div>
 </template>
 
 <style>
-#submit_signup {
-  background-color: blue;
-  color: white;
-  border-radius: 30px;
-}
 </style>
