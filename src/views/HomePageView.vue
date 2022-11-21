@@ -3,8 +3,12 @@ import OfferCardVue from "../components/OfferCard.vue";
 import { ref } from "vue";
 import router from "@/router";
 
-const titleClass = ref("Toutes les offres");
+if (!localStorage.getItem("token")) {
+  router.push("/login");
+}
 
+const titleClass = ref("Toutes les offres");
+const token = localStorage.getItem("token");
 const offers = ref([]);
 const user = ref([]);
 
@@ -51,10 +55,7 @@ const getUserFromSession = async () => {
   //Set the header of the request
   const header = new Headers();
   header.append("Content-Type", "application/json");
-  header.append(
-    "Authorization",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZhY2Vib2tAZ21haWwuY29tIiwiaWF0IjoxNjY4Nzg0Mzg3LCJleHAiOjE3NTUxODQzODd9.39V_8TOGeop3GMDPqOrDVo431iyFkwdxMwFmIVcKrcA"
-  );
+  header.append("Authorization", token);
   //Set the options of the request
   const options = {
     method: "GET",
@@ -87,10 +88,7 @@ const getAllOffers = async () => {
   //Set the header of the request
   const header = new Headers();
   header.append("Content-Type", "application/json");
-  header.append(
-    "Authorization",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZhY2Vib2tAZ21haWwuY29tIiwiaWF0IjoxNjY4ODc3MDAwLCJleHAiOjE3NTUyNzcwMDB9.S0yeXyvlfJLVO7oDWDPNgv_JS3PS-YdhJjCTGe3tbdw"
-  );
+  header.append("Authorization", token);
   //Set the options of the request
   const options = {
     method: "GET",
@@ -113,7 +111,6 @@ const getAllOffers = async () => {
       console.error("There was an error : ", error);
     });
 };
-const isIntrested = () => {};
 getAllOffers();
 </script>
 
@@ -124,9 +121,15 @@ getAllOffers();
       <div v-for="offer in offers" :key="offer.id">
         <OfferCardVue
           :offertitle="offer.title"
-          :offer-description="offer.description"
+          :offer-publication-date="offer.publicationDate"
           :offer-type="offer.contractType"
           :id="offer.idJobOffer"
+          :user-type="user.type"
+          :is-intrested="
+            offer.interestedUsersId.some((value) => value.idUser === user.id)
+              ? true
+              : false
+          "
           @on-button-click="onButtonClick($event)"
           @on-intrested-click="onIntrestedClick($event, user.idUser)"
         ></OfferCardVue>
