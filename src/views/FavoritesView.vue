@@ -1,19 +1,27 @@
 <script setup>
-import {ref} from "vue";
+import {markRaw, ref} from "vue";
 import router from "@/router";
 import api_requests from "@/utils/api_requests";
-import Favorite from "@/components/Favorite.vue";
+import OfferCard from "@/components/OfferCard.vue";
 
 // if(!utils.isConnected()) {
 //   router.push("/login")
 // }
 
-const tempFav = api_requests.getFavorites();
 const favorites = ref([]);
 
+async function loadFavorites() {
+  const temp = await api_requests.getFavorites();
+  favorites.value = temp;
+}
+loadFavorites().then();
 </script>
 
 <template>
   <h1>Vos offres d'emplois favorites</h1>
-  <Favorite/>
+  <div>
+    <div v-for="favorite in favorites" :key="favorite.id">
+      <OfferCard v-bind:offer="favorite"/>
+    </div>
+  </div>
 </template>
