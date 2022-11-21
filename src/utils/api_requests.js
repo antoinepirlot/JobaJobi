@@ -59,12 +59,14 @@ async function getJobOfferById(id) {
 };
 
 async function getUserByToken() {
+  let token = localStorage.getItem("token");
+  if(token === null) token = sessionStorage.getItem("token");
   try {
     const options = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": localStorage.getItem("token")
+        "Authorization": token
       },
     };
     const response = await fetch("/api/users/getUserSession/", options);

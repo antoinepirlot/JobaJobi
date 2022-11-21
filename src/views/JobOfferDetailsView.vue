@@ -6,7 +6,10 @@ import api_requests from "@/utils/api_requests";
 
 const offer = await api_requests.getJobOfferById(router.currentRoute.value.params.id);
 console.log(offer)
-const isCompanyOwnerOfJobOffer = true; //TODO : change call the back with the token
+
+const userConnected = await api_requests.getUserByToken();
+console.log(userConnected);
+const isCompanyOwnerOfJobOffer = userConnected.id === offer.idCompany; 
 let allInterested = [];
 if(isCompanyOwnerOfJobOffer){
   allInterested = await api_requests.getInterestedByIdJobOffer(router.currentRoute.value.params.id);
