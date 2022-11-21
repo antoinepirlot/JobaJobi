@@ -3,16 +3,14 @@ import { ref } from "vue";
 
 const props = defineProps({
   offertitle: String,
-  offerDescription: String,
+  offerPublicationDate: String,
   offerType: String,
+  userType: String,
+  isIntrested: Boolean,
   id: Number,
 });
-//Get the token in the localStorage
-const token = localStorage.getItem("token");
 
 const emit = defineEmits(["onButtonClick", "onIntrestedClick"]);
-
-const isIntrested = ref(null);
 
 const onButtonClick = () => {
   emit("onButtonClick", props.id);
@@ -29,13 +27,17 @@ const onIntrestedClick = () => {
     <div class="title">
       <h1>{{ offertitle }}</h1>
     </div>
-    <button class="star" @click="onIntrestedClick">
-      <span class="fa fa-star"></span>
+    <button
+      v-if="userType === 'Particulier' && !isIntrested"
+      class="star"
+      @click="onIntrestedClick"
+    >
+      love it!
     </button>
     <div class="des">
       <h2>{{ !offerType ? "Type de contrat non défini" : offerType }}</h2>
-      <div class="description">
-        <p>{{ offerDescription }}</p>
+      <div class="date">
+        <p>{{ offerPublicationDate }}</p>
       </div>
 
       <button @click="onButtonClick">Voir plus</button>
@@ -44,7 +46,8 @@ const onIntrestedClick = () => {
 </template>
 
 <style>
-.description {
+.date {
+  margin-top: 10%;
   width: auto;
   height: 50px;
   overflow: hidden;
@@ -57,7 +60,7 @@ const onIntrestedClick = () => {
 .star {
   display: flex;
   position: absolute;
-  top: -5%;
+  top: -10%;
   right: 7%;
 }
 
