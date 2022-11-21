@@ -1,8 +1,7 @@
+import utils from "@/utils/utils";
+
 async function getFavorites() {
-  let token = localStorage.token;
-  if(!token) {
-    token = sessionStorage.token;
-  }
+  const token = utils.getItem("token");
   const request = {
     method: "GET",
     headers: {
