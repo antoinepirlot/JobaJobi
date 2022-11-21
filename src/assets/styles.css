@@ -1,0 +1,13 @@
+/* Form styles */
+.form {
+  text-align: center;
+  line-height: 2.5em;
+  border: 2px solid black;
+  margin-left: 30%;
+  margin-right: 30%;
+}
+
+.goToAPage{
+  text-decoration: underline;
+  cursor: pointer;
+}

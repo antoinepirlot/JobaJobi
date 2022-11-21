@@ -14,6 +14,33 @@ function checkPassword(password1, password2) {
       && password1 === password2;
 }
 
+/**
+ * get the item from local or session storage.
+ * @param itemName the name of the item to return.
+ * @returns {item} the item if found in the storage otherwise raises an error.
+ */
+function getItem(itemName) {
+  let item = localStorage.getItem(itemName);
+  if(!item) {
+    item = sessionStorage.getItem(itemName);
+    if(!item) {
+      throw new Error("No token");
+    }
+  }
+  return item;
+}
+
+/**
+ * Check if the user is connected and return true or false
+ * @return {boolean} true if the user is connected, otherwise false
+ */
+function isConnected() {
+  return !!window.localStorage.getItem("token")
+      || !!window.sessionStorage.getItem("token");
+}
+
 export default {
   checkPassword,
+  getItem,
+  isConnected,
 };

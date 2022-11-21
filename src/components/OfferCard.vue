@@ -2,10 +2,11 @@
 import { ref } from "vue";
 
 const props = defineProps({
-  offertitle: String,
-  offerDescription: String,
-  offerType: String,
-  id: Number,
+  offer: {
+    type: Object,
+    required: true
+  },
+
 });
 //Get the token in the localStorage
 const token = localStorage.getItem("token");
@@ -27,15 +28,15 @@ const onIntrestedClick = () => {
   <div class="card">
     <div class="image"></div>
     <div class="title">
-      <h1>{{ offertitle }}</h1>
+      <h1>{{ offer.offerTitle }}</h1>
     </div>
     <button class="star" @click="onIntrestedClick">
       <span class="fa fa-star"></span>
     </button>
     <div class="des">
-      <h2>{{ !offerType ? "Type de contrat non défini" : offerType }}</h2>
+      <h2>{{ !offer.offerType ? "Type de contrat non défini" : offer.offerType }}</h2>
       <div class="description">
-        <p>{{ offerDescription }}</p>
+        <p>{{ offer.offerDescription }}</p>
       </div>
 
       <button @click="onButtonClick">Voir plus</button>
