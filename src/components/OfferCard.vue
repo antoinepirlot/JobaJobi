@@ -23,6 +23,8 @@ const onButtonClick = () => {
 const onIntrestedClick = () => {
   emit("onIntrestedClick", props.offer.idJobOffer);
 };
+
+// v-if="displayFavouriteCase ?? ''"
 </script>
 
 <template>
@@ -32,12 +34,11 @@ const onIntrestedClick = () => {
       <h1>{{ !offer.title ? "Titre non défini" : offer.title }}</h1>
     </div>
     <button
-      v-if="displayFavouriteCase ?? ''"
-      <!--
       v-if="userType === 'Particulier' && !isIntrested"
-      --
+      class="star"
+      @click="onIntrestedClick"
     >
-      class="star" @click="onIntrestedClick" > love it!
+      love it!
     </button>
     <div class="des">
       <h2>

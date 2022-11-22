@@ -47,7 +47,7 @@ onMounted(async () => {
 <template>
   <!-- Company View -->
 
-  <template v-if="user.type === 'company'">
+  <template v-if="user.type === 'Entreprise'">
     <div class="profile-display">
       <h1>Profil de l'entreprise</h1>
       <div><span>Nom de l'entreprise :</span> {{ user.companyName }}</div>
