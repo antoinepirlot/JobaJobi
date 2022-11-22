@@ -16,11 +16,17 @@ const router = createRouter({
       path: "/:catchAll(.*)",
       name: "not found",
       component: HomePageView,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/",
       name: "home",
       component: HomePageView,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/createJobOffer",
