@@ -7,6 +7,7 @@ import MyOffersView from "../views/MyOffersView.vue";
 import LogoutView from '../views/LogoutView.vue';
 import FavoritesView from "@/views/FavoritesView.vue";
 import JobOfferDetailsView from '../views/JobOfferDetailsView.vue'
+import api_requests from "@/utils/api_requests";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,6 +34,10 @@ const router = createRouter({
       path: "/createJobOffer",
       name: "createJobOffer",
       component: CreateJobOfferView,
+      meta: {
+        requiresAuth: true,
+        requiresCompany: true
+      }
     },
     {
       path: '/jobOfferDetails/:id',
@@ -72,6 +77,11 @@ const router = createRouter({
 
 router.beforeEach(async (to, from) => {
   if(to.meta.requiresAuth && !localStorage.getItem("token")) return { name: 'login' }
+  
+  if(to.meta.requiresCompany){
+    const user = await api_requests.getUserByToken();
+    if(user.type !== "Entreprise") return { name: 'home'}
+  } 
 })
 
 export default router;
