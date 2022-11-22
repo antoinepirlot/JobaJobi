@@ -3,6 +3,7 @@ import CreateJobOfferView from "../views/CreateJobOfferView.vue";
 import HomePageView from "../views/HomePageView.vue";
 import LoginView from "../views/LoginView.vue";
 import SignUpView from "../views/SignUpView.vue";
+import MyOffersView from "../views/MyOffersView.vue";
 import LogoutView from '../views/LogoutView.vue';
 import FavoritesView from "@/views/FavoritesView.vue";
 import JobOfferDetailsView from '../views/JobOfferDetailsView.vue'
@@ -49,6 +50,14 @@ const router = createRouter({
       component: SignUpView,
     },
     {
+      path: "/myOffers",
+      name: "myOffers",
+      component: MyOffersView,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: "/logout",
       name: "logout",
       component: LogoutView
@@ -60,5 +69,9 @@ const router = createRouter({
     }
   ],
 });
+
+router.beforeEach(async (to, from) => {
+  if(to.meta.requiresAuth && !localStorage.getItem("token")) return { name: 'login' }
+})
 
 export default router;

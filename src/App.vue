@@ -12,7 +12,6 @@ import { RouterLink, RouterView } from 'vue-router'
     </div>
   </header>
   <Suspense>
-    <RouterView />
+   <RouterView />
   </Suspense>
-  
 </template>
