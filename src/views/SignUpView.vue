@@ -53,6 +53,10 @@ async function signup(e) {
       errorMessage.value = "Missing firstName";
       return;
     }
+    if (birthday.value === null) {
+      errorMessage.value = "Missing birthday";
+      return;
+    }
   } else {
     if (companyName.value === "") {
       errorMessage.value = "Missing company name";
@@ -66,10 +70,6 @@ async function signup(e) {
       errorMessage.value = "Missing company description";
       return;
     }
-  }
-  if (birthday.value === null) {
-    errorMessage.value = "Missing birthday";
-    return;
   }
   if (phone.value === "") {
     errorMessage.value = "Missing phone";
