@@ -39,10 +39,11 @@ if(user.value.type!=="Entreprise") router.push("/");
     <h1>{{ titleClass }}</h1>
     <div class="cards-offers">
         <OfferCardVue
-          offertitle="test"
-          offer-description="description"
-          offer-type="contractType"
-          :id="idJobOffer"
+          :offer="{offerTitle:'test',
+            offerDescription:'description',
+            offerType:'contractType',
+            id:idJobOffer,
+          }"
         />
     </div>
   </div>
