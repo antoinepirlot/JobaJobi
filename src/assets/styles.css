@@ -11,3 +11,8 @@
   text-decoration: underline;
   cursor: pointer;
 }
+
+/*Offer card styles*/
+.offerCard {
+  float: left;
+}

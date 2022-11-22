@@ -22,7 +22,7 @@ loadFavorites().then();
   <h1>Vos offres d'emplois favorites</h1>
   <div>
     <div v-for="favorite in favorites" :key="favorite.id">
-      <OfferCard v-bind:offer="favorite"/>
+      <OfferCard class="offerCard" v-bind:offer="favorite"/>
     </div>
   </div>
 </template>
