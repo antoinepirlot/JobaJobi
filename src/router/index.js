@@ -76,7 +76,8 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from) => {
-  if(to.meta.requiresAuth && !localStorage.getItem("token")) return { name: 'login' }
+  if(to.meta.requiresAuth && !localStorage.getItem("token") && !sessionStorage
+  .getItem("token")) return { name: 'login' }
   
   if(to.meta.requiresCompany){
     const user = await api_requests.getUserByToken();

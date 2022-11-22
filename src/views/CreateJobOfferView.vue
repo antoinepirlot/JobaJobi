@@ -5,6 +5,7 @@ import InputInFormVue from "../components/InputInForm.vue";
 import TextAreaInFormVue from "../components/TextAreaInForm.vue";
 import SubmitButtonInFormVue from "../components/SubmitButtonInForm.vue";
 import router from "../router/index.js";
+import api_requests from "@/utils/api_requests";
 
 const titleClass = "Créer une offre d'emploi";
 const typesContract = ["CDI", "CDD", "Stage non rémunéré", "Stage rémunéré"];
@@ -24,20 +25,21 @@ const fieldsContainsEmpty = () => {
   return false;
 };
 
-const addJobOffer = (e) => {
+const addJobOffer = async (e) => {
   e.preventDefault();
   //Verify empty fields
   if (fieldsContainsEmpty()) {
     isVisible.value = true;
     return;
   }
+  const user = await api_requests.getUserByToken();
   //create the new job offer
   const newJobOffer = {
     title: offerTitle.value,
     contactMail: mailContact.value,
     contractType: typeContract.value,
     description: description.value,
-    idCompany: 1, //TODO : changer l'id
+    idCompany: user.id,
   };
   addJobOfferToBackend(newJobOffer);
   router.push("/");
@@ -45,13 +47,15 @@ const addJobOffer = (e) => {
 };
 
 const addJobOfferToBackend = async (newJobOffer) => {
+  let token = localStorage.getItem("token");
+  if(token === null) token = sessionStorage.getItem("token");
   try {
     const options = {
       method: "POST",
       body: JSON.stringify(newJobOffer),
       headers: {
         "Content-Type": "application/json",
-        //TODO : add authorization
+        "Authorization": token
       },
     };
     const response = await fetch("/api/jobOffers/create", options);
