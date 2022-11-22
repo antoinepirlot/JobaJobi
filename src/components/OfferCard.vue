@@ -6,6 +6,10 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  displayFavouriteCase: {
+    type: Boolean,
+    default: true,
+  },
   isIntrested: Boolean,
   userType: String,
 });
@@ -28,11 +32,12 @@ const onIntrestedClick = () => {
       <h1>{{ !offer.title ? "Titre non défini" : offer.title }}</h1>
     </div>
     <button
+      v-if="displayFavouriteCase ?? ''"
+      <!--
       v-if="userType === 'Particulier' && !isIntrested"
-      class="star"
-      @click="onIntrestedClick"
+      --
     >
-      love it!
+      class="star" @click="onIntrestedClick" > love it!
     </button>
     <div class="des">
       <h2>
@@ -49,6 +54,7 @@ const onIntrestedClick = () => {
           }}
         </p>
       </div>
+      <p>{{ offer.interestedUsersId.length }} personne(s) intéressée(s)</p>
 
       <button @click="onButtonClick">Voir plus</button>
     </div>
