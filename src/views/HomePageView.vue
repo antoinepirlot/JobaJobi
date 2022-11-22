@@ -34,6 +34,7 @@ const onIntrestedClick = (idOffer, idUser) => {
         headers: {
           "Content-Type": "application/json",
           //TODO : add authorization
+          Authorization: token,
         },
       };
       const response = await fetch("/api/jobOffers/createIntrested", options);
@@ -128,7 +129,7 @@ getAllOffers();
               : false
           "
           @on-button-click="onButtonClick($event)"
-          @on-intrested-click="onIntrestedClick($event, user.idUser)"
+          @on-intrested-click="onIntrestedClick($event, user.id)"
         />
       </div>
     </div>
