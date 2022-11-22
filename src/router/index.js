@@ -7,7 +7,7 @@ import MyOffersView from "../views/MyOffersView.vue";
 import LogoutView from "../views/LogoutView.vue";
 import FavoritesView from "@/views/FavoritesView.vue";
 import ProfilePageView from "../views/ProfilePageView.vue";
-import JobOfferDetailsView from '../views/JobOfferDetailsView.vue'
+import JobOfferDetailsView from "../views/JobOfferDetailsView.vue";
 import api_requests from "@/utils/api_requests";
 
 const router = createRouter({
@@ -38,17 +38,17 @@ const router = createRouter({
       meta: {
         requiresAuth: true,
         requiresCompany: true,
-      }
+      },
     },
     {
-      path: '/jobOfferDetails/:id',
-      name: 'jobOfferDetails',
-      component: JobOfferDetailsView
+      path: "/jobOfferDetails/:id",
+      name: "jobOfferDetails",
+      component: JobOfferDetailsView,
     },
     {
-      path: '/login',
-      name: 'login',
-      component: LoginView
+      path: "/login",
+      name: "login",
+      component: LoginView,
     },
     {
       path: "/signup",
@@ -76,17 +76,18 @@ const router = createRouter({
     {
       path: "/profile",
       name: "profile",
-      component: ProfilePageView,,
+      component: ProfilePageView,
       meta: {
         requiresAuth: true,
-        requiresParticular: true
-      }
+        requiresParticular: true,
+      },
     },
   ],
 });
 
 router.beforeEach(async (to, from) => {
-  if(to.meta.requiresAuth && !localStorage.getItem("token")) return { name: 'login' }
-})
+  if (to.meta.requiresAuth && !localStorage.getItem("token"))
+    return { name: "login" };
+});
 
 export default router;
