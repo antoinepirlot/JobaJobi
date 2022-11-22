@@ -42,7 +42,10 @@ const router = createRouter({
     {
       path: '/jobOfferDetails/:id',
       name: 'jobOfferDetails',
-      component: JobOfferDetailsView
+      component: JobOfferDetailsView,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/login',
