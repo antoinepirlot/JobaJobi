@@ -131,6 +131,12 @@ async function signup(e) {
       <div v-if="type===options[0]">
         <InputInForm v-model="lastName" type-input="text" label-name="Nom" name="lastname"/>
         <InputInForm v-model="firstName" type-input="text" label-name="Prénom" name="firstname"/>
+        <InputInForm
+            v-model="birthday"
+            type-input="date"
+            label-name="Date de naissance"
+            name="birthday"
+        />
       </div>
       <div v-else>
         <InputInForm
@@ -151,12 +157,6 @@ async function signup(e) {
             name="companyDescription"
         />
       </div>
-      <InputInForm
-          v-model="birthday"
-          type-input="date"
-          label-name="Date de naissance"
-          name="birthday"
-      />
       <InputInForm v-model="phone" type-input="tel" label-name="Numéro de téléphone" name="phone"/>
       <InputInForm v-model="email" type-input="email" label-name="Adresse email" name="email"/>
       <InputInForm
