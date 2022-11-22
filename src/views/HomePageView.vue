@@ -118,7 +118,7 @@ getAllOffers();
   <div class="homepage-display">
     <h1>{{ titleClass }}</h1>
     <div class="cards-offers">
-      <div v-for="offer in offers" :key="offer.id">
+      <div v-for="offer in offers" :key="offer.idJobOffer">
         <OfferCard
           :offer="offer"
           :user-type="user.type"

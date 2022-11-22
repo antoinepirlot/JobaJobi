@@ -6,16 +6,18 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  userType: String,
+  isIntrested: Boolean,
 });
 
 const emit = defineEmits(["onButtonClick", "onIntrestedClick"]);
 
 const onButtonClick = () => {
-  emit("onButtonClick", props.id);
+  emit("onButtonClick", props.offer.idJobOffer);
 };
 
 const onIntrestedClick = () => {
-  emit("onIntrestedClick", props.id);
+  emit("onIntrestedClick", props.offer.idJobOffer);
 };
 </script>
 
