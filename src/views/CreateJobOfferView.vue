@@ -7,10 +7,11 @@ import SubmitButtonInFormVue from "../components/SubmitButtonInForm.vue";
 import router from "../router/index.js";
 import api_requests from "@/utils/api_requests";
 
+const user = await api_requests.getUserByToken();
 const titleClass = "Créer une offre d'emploi";
 const typesContract = ["CDI", "CDD", "Stage non rémunéré", "Stage rémunéré"];
 const offerTitle = ref("");
-const mailContact = ref("");
+const mailContact = ref(user.email);
 const typeContract = ref(typesContract[0]);
 const description = ref("");
 const isVisible = ref(false);
@@ -32,7 +33,6 @@ const addJobOffer = async (e) => {
     isVisible.value = true;
     return;
   }
-  const user = await api_requests.getUserByToken();
   //create the new job offer
   const newJobOffer = {
     title: offerTitle.value,
@@ -41,34 +41,12 @@ const addJobOffer = async (e) => {
     description: description.value,
     idCompany: user.id,
   };
-  addJobOfferToBackend(newJobOffer);
+  await api_requests.createJobOffer(newJobOffer);
   router.push("/");
   return;
 };
 
-const addJobOfferToBackend = async (newJobOffer) => {
-  let token = localStorage.getItem("token");
-  if(token === null) token = sessionStorage.getItem("token");
-  try {
-    const options = {
-      method: "POST",
-      body: JSON.stringify(newJobOffer),
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": token
-      },
-    };
-    const response = await fetch("/api/jobOffers/create", options);
-    if (!response.ok) {
-      throw new Error(
-        "fetch error : " + response.status + " : " + response.statusText
-      );
-    }
-    return await response.json();
-  } catch (err) {
-    console.error("error: ", err);
-  }
-};
+
 </script>
 
 <template>
