@@ -43,6 +43,7 @@ const onIntrestedClick = () => {
       <div class="description">
         <p>{{ offer.description }}</p>
       </div>
+      <p>{{ offer.interestedUsersId.length }} personne(s) intéressée(s)</p>
 
       <button @click="onButtonClick">Voir plus</button>
     </div>

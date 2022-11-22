@@ -143,8 +143,30 @@ async function signup(user) {
     );
   }
   return await response.json();
-}
+};
 
+async function getAllMyJobOffers() {
+  let token = localStorage.getItem("token");
+  if(token === null) token = sessionStorage.getItem("token");
+  try {
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": token
+      },
+    };
+    const response = await fetch("/api/jobOffers/company/getAllMyJobOffers/", options);
+    if (!response.ok) {
+      throw new Error(
+        "fetch error : " + response.status + " : " + response.statusText
+      );
+    }
+    return await response.json();
+  } catch (err) {
+    console.error("error: ", err);
+  }
+};
 
 
 export default {
@@ -155,4 +177,5 @@ export default {
   getUserById,
   getUserByToken,
   signup,
+  getAllMyJobOffers
 };
