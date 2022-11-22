@@ -1,5 +1,29 @@
 import utils from "@/utils/utils";
 
+async function createJobOffer(newJobOffer) {
+  let token = localStorage.getItem("token");
+  if(token === null) token = sessionStorage.getItem("token");
+  try {
+    const options = {
+      method: "POST",
+      body: JSON.stringify(newJobOffer),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": token
+      },
+    };
+    const response = await fetch("/api/jobOffers/create", options);
+    if (!response.ok) {
+      throw new Error(
+        "fetch error : " + response.status + " : " + response.statusText
+      );
+    }
+    return await response.json();
+  } catch (err) {
+    console.error("error: ", err);
+  }
+};
+
 async function getFavorites() {
   const token = utils.getItem("token");
   const request = {
@@ -101,6 +125,7 @@ async function signup(user) {
 
 
 export default {
+  createJobOffer,
   getFavorites,
   getInterestedByIdJobOffer,
   getJobOfferById,
