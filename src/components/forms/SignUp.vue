@@ -81,9 +81,9 @@ async function signup(e) {
   try {
     const token = await api_requests.signup(user);
     if(stayConencted.value) {
-      window.sessionStorage.setItem("token", token);
-    } else {
       window.localStorage.setItem("token", token);
+    } else {
+      window.sessionStorage.setItem("token", token);
     }
   } catch (e) {
     console.error(e.message);
