@@ -18,7 +18,7 @@ console.log(myJobOffers);
   <div class="homepage-display">
     <h1>{{ titleClass }}</h1>
     <h2 v-if="myJobOffers.length===0">Vous n'avez pas d'offres d'emploi</h2>
-    <div class="cards-offers">
+    <div v-else class="cards-offers">
       <div v-for="offer in myJobOffers" :key="offer.idJobOffer">
         <OfferCardVue class="offerCard"
           :offer="offer"  :display-favourite-case="false"
