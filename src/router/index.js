@@ -36,7 +36,7 @@ const router = createRouter({
       component: CreateJobOfferView,
       meta: {
         requiresAuth: true,
-        requiresCompany: true
+        requiresCompany: true,
       }
     },
     {
@@ -70,7 +70,11 @@ const router = createRouter({
     {
       path: "/favorites",
       name: "favorites",
-      component: FavoritesView
+      component: FavoritesView,
+      meta: {
+        requiresAuth: true,
+        requiresParticular: true
+      }
     }
   ],
 });
@@ -82,7 +86,11 @@ router.beforeEach(async (to, from) => {
   if(to.meta.requiresCompany){
     const user = await api_requests.getUserByToken();
     if(user.type !== "Entreprise") return { name: 'home'}
-  } 
+  }
+  if(to.meta.requiresParticular){
+    const user = await api_requests.getUserByToken();
+    if(user.type !== "Particulier") return { name: 'home'}
+  }
 })
 
 export default router;
