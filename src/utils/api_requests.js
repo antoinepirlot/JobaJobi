@@ -82,6 +82,29 @@ async function getJobOfferById(id) {
   }
 };
 
+async function getUserById(id) {
+  let token = localStorage.getItem("token");
+  if(token === null) token = sessionStorage.getItem("token");
+  try {
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": token
+      },
+    };
+    const response = await fetch("/api/users/id/"+id, options);
+    if (!response.ok) {
+      throw new Error(
+        "fetch error : " + response.status + " : " + response.statusText
+      );
+    }
+    return await response.json();
+  } catch (err) {
+    console.error("error: ", err);
+  }
+};
+
 async function getUserByToken() {
   let token = localStorage.getItem("token");
   if(token === null) token = sessionStorage.getItem("token");
@@ -129,6 +152,7 @@ export default {
   getFavorites,
   getInterestedByIdJobOffer,
   getJobOfferById,
+  getUserById,
   getUserByToken,
   signup,
 };
