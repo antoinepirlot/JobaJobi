@@ -7,6 +7,7 @@ import utils from "@/utils/utils";
 import api_requests from "@/utils/api_requests";
 import SelectInForm from "@/components/SelectInForm.vue";
 import SubmitButtonInForm from "@/components/SubmitButtonInForm.vue";
+import TextAreaInForm from "@/components/TextAreaInForm.vue";
 
 if (utils.isConnected()) {
   router.push("/");
@@ -15,8 +16,6 @@ if (utils.isConnected()) {
 const options = ["Particulier", "Entreprise"];
 
 //Form values
-const lastName = ref("");
-const firstName = ref("");
 const birthday = ref(null);
 const phone = ref("");
 const email = ref("");
@@ -24,6 +23,14 @@ const password = ref("");
 const confirmPassword = ref("");
 const type = ref(options[0]);
 const stayConencted = ref(false);
+//Particulier
+const lastName = ref("");
+const firstName = ref("");
+//Companies
+const companyName = ref("");
+const companyTown = ref("");
+const companyDescription = ref("");
+
 let errorMessage = ref("");
 
 function goToConnectionPage() {
@@ -37,13 +44,28 @@ function toggleStayConnected() {
 async function signup(e) {
   e.preventDefault();
   errorMessage.value = "";
-  if (lastName.value === "") {
-    errorMessage.value = "Missing lastname";
-    return;
-  }
-  if (firstName.value === "") {
-    errorMessage.value = "Missing firstName";
-    return;
+  if(type === options[0]) {
+    if (lastName.value === "") {
+      errorMessage.value = "Missing lastname";
+      return;
+    }
+    if (firstName.value === "") {
+      errorMessage.value = "Missing firstName";
+      return;
+    }
+  } else {
+    if (companyName.value === "") {
+      errorMessage.value = "Missing company name";
+      return;
+    }
+    if (companyTown.value === "") {
+      errorMessage.value = "Missing company town";
+      return;
+    }
+    if (companyDescription.value === "") {
+      errorMessage.value = "Missing company description";
+      return;
+    }
   }
   if (birthday.value === null) {
     errorMessage.value = "Missing birthday";
@@ -74,13 +96,19 @@ async function signup(e) {
     return;
   }
   const user = {
-    firstName: firstName.value,
-    lastName: lastName.value,
     birthday: birthday.value,
     phone: phone.value,
     email: email.value,
     password: password.value,
     type: type.value
+  };
+  if(type === options[0]) {
+    user.firstName = firstName.value;
+    user.lastName = lastName.value;
+  } else {
+    user.companyName = companyName.value;
+    user.companyTown = companyTown.value;
+    user.companyDescription = companyDescription.value;
   }
   try {
     const token = await api_requests.signup(user);
@@ -100,8 +128,29 @@ async function signup(e) {
   <div class="form">
     <h1>Inscription</h1>
     <form>
-      <InputInForm v-model="lastName" type-input="text" label-name="Nom" name="lastname"/>
-      <InputInForm v-model="firstName" type-input="text" label-name="Prénom" name="firstname"/>
+      <div v-if="type===options[0]">
+        <InputInForm v-model="lastName" type-input="text" label-name="Nom" name="lastname"/>
+        <InputInForm v-model="firstName" type-input="text" label-name="Prénom" name="firstname"/>
+      </div>
+      <div v-else>
+        <InputInForm
+            v-model="companyName"
+            type-input="text"
+            label-name="Nom de l'entreprise"
+            name="companyName"
+        />
+        <InputInForm
+            v-model="companyTown"
+            type-input="text"
+            label-name="Siège Social"
+            name="companyTown"
+        />
+        <TextAreaInForm
+            v-model="companyDescription"
+            label-name="Description de l'entreprise"
+            name="companyDescription"
+        />
+      </div>
       <InputInForm
           v-model="birthday"
           type-input="date"
@@ -122,10 +171,18 @@ async function signup(e) {
           label-name="Confirmer le mot de passe"
           name="confirm_password"
       />
-      <SelectInForm v-model="type" label-name="Type d'utilisateur" name="type_list"
-                    v-bind:options="options"/>
-      <InputInForm @click="toggleStayConnected" type-input="checkbox" label-name="Rester connecter"
-                   name="stay_connected"/>
+      <SelectInForm
+          v-model="type"
+          label-name="Type d'utilisateur"
+          name="type_list"
+          v-bind:options="options"
+      />
+      <InputInForm
+          @click="toggleStayConnected"
+          type-input="checkbox"
+          label-name="Rester connecter"
+          name="stay_connected"
+      />
       <SubmitButtonInForm @click="signup" name="S'inscrire"/>
       <ErrorMessage v-if="errorMessage !== ''" :error-message="errorMessage"/>
     </form>
