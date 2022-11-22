@@ -9,6 +9,7 @@ import FavoritesView from "@/views/FavoritesView.vue";
 import JobOfferDetailsView from "../views/JobOfferDetailsView.vue";
 import api_requests from "@/utils/api_requests";
 import ProfilePageView from "../views/ProfilePageView.vue";
+import api_requests from "@/utils/api_requests";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -73,11 +74,17 @@ const router = createRouter({
       path: "/favorites",
       name: "favorites",
       component: FavoritesView,
+    },
+    {
+      path: "/profile",
+      name: "profile",
+      component: ProfilePageView,
       meta: {
         requiresAuth: true,
-        requiresParticular: true,
-      },
-    },
+        requiresParticular: true
+      }
+    }
+>>>>>>>>> Temporary merge branch 2
   ],
 });
 
@@ -97,6 +104,10 @@ router.beforeEach(async (to, from) => {
     const user = await api_requests.getUserByToken();
     if (user.type !== "Particulier") return { name: "home" };
   }
+});
+
+  if (to.meta.requiresAuth && !localStorage.getItem("token"))
+    return { name: "login" };
 });
 
 export default router;

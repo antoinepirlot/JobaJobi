@@ -6,8 +6,8 @@ const props = defineProps({
     type: Object,
     required: true,
   },
-  userType: String,
   isIntrested: Boolean,
+  userType: String,
 });
 
 const emit = defineEmits(["onButtonClick", "onIntrestedClick"]);
@@ -25,7 +25,7 @@ const onIntrestedClick = () => {
   <div class="card">
     <div class="image"></div>
     <div class="title">
-      <h1>{{ offer.title }}</h1>
+      <h1>{{ !offer.title ? "Titre non défini" : offer.title }}</h1>
     </div>
     <button
       v-if="userType === 'Particulier' && !isIntrested"
@@ -42,8 +42,12 @@ const onIntrestedClick = () => {
             : offer.contractType
         }}
       </h2>
-      <div class="description">
-        <p>{{ offer.description }}</p>
+      <div class="date">
+        <p>
+          {{
+            !offer.publicationDate ? "Date non définie" : offer.publicationDate
+          }}
+        </p>
       </div>
 
       <button @click="onButtonClick">Voir plus</button>
