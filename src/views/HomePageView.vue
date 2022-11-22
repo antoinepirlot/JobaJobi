@@ -1,5 +1,5 @@
 <script setup>
-import OfferCardVue from "../components/OfferCard.vue";
+import OfferCard from "../components/OfferCard.vue";
 import { ref } from "vue";
 import router from "@/router";
 
@@ -119,11 +119,8 @@ getAllOffers();
     <h1>{{ titleClass }}</h1>
     <div class="cards-offers">
       <div v-for="offer in offers" :key="offer.id">
-        <OfferCardVue
-          :offertitle="offer.title"
-          :offer-publication-date="offer.publicationDate"
-          :offer-type="offer.contractType"
-          :id="offer.idJobOffer"
+        <OfferCard
+          :offer="offer"
           :user-type="user.type"
           :is-intrested="
             offer.interestedUsersId.some((value) => value.idUser === user.id)
@@ -132,7 +129,7 @@ getAllOffers();
           "
           @on-button-click="onButtonClick($event)"
           @on-intrested-click="onIntrestedClick($event, user.idUser)"
-        ></OfferCardVue>
+        />
       </div>
     </div>
   </div>

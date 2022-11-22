@@ -2,12 +2,10 @@
 import { ref } from "vue";
 
 const props = defineProps({
-  offertitle: String,
-  offerPublicationDate: String,
-  offerType: String,
-  userType: String,
-  isIntrested: Boolean,
-  id: Number,
+  offer: {
+    type: Object,
+    required: true,
+  },
 });
 
 const emit = defineEmits(["onButtonClick", "onIntrestedClick"]);
@@ -25,7 +23,7 @@ const onIntrestedClick = () => {
   <div class="card">
     <div class="image"></div>
     <div class="title">
-      <h1>{{ offertitle }}</h1>
+      <h1>{{ offer.title }}</h1>
     </div>
     <button
       v-if="userType === 'Particulier' && !isIntrested"
@@ -35,9 +33,15 @@ const onIntrestedClick = () => {
       love it!
     </button>
     <div class="des">
-      <h2>{{ !offerType ? "Type de contrat non défini" : offerType }}</h2>
-      <div class="date">
-        <p>{{ offerPublicationDate }}</p>
+      <h2>
+        {{
+          !offer.contractType
+            ? "Type de contrat non défini"
+            : offer.contractType
+        }}
+      </h2>
+      <div class="description">
+        <p>{{ offer.description }}</p>
       </div>
 
       <button @click="onButtonClick">Voir plus</button>

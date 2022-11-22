@@ -3,8 +3,11 @@ import CreateJobOfferView from "../views/CreateJobOfferView.vue";
 import HomePageView from "../views/HomePageView.vue";
 import LoginView from "../views/LoginView.vue";
 import SignUpView from "../views/SignUpView.vue";
+import MyOffersView from "../views/MyOffersView.vue";
 import LogoutView from "../views/LogoutView.vue";
 import FavoritesView from "@/views/FavoritesView.vue";
+import JobOfferDetailsView from "../views/JobOfferDetailsView.vue";
+import api_requests from "@/utils/api_requests";
 import ProfilePageView from "../views/ProfilePageView.vue";
 
 const router = createRouter({
@@ -14,24 +17,34 @@ const router = createRouter({
       path: "/:catchAll(.*)",
       name: "not found",
       component: HomePageView,
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
       path: "/",
       name: "home",
       component: HomePageView,
-    },
-    {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import("../views/AboutView.vue"),
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
       path: "/createJobOffer",
       name: "createJobOffer",
       component: CreateJobOfferView,
+      meta: {
+        requiresAuth: true,
+        requiresCompany: true,
+      },
+    },
+    {
+      path: "/jobOfferDetails/:id",
+      name: "jobOfferDetails",
+      component: JobOfferDetailsView,
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
       path: "/login",
@@ -44,6 +57,14 @@ const router = createRouter({
       component: SignUpView,
     },
     {
+      path: "/myOffers",
+      name: "myOffers",
+      component: MyOffersView,
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
       path: "/logout",
       name: "logout",
       component: LogoutView,
@@ -52,13 +73,30 @@ const router = createRouter({
       path: "/favorites",
       name: "favorites",
       component: FavoritesView,
-    },
-    {
-      path: "/profile",
-      name: "profile",
-      component: ProfilePageView,
+      meta: {
+        requiresAuth: true,
+        requiresParticular: true,
+      },
     },
   ],
+});
+
+router.beforeEach(async (to, from) => {
+  if (
+    to.meta.requiresAuth &&
+    !localStorage.getItem("token") &&
+    !sessionStorage.getItem("token")
+  )
+    return { name: "login" };
+
+  if (to.meta.requiresCompany) {
+    const user = await api_requests.getUserByToken();
+    if (user.type !== "Entreprise") return { name: "home" };
+  }
+  if (to.meta.requiresParticular) {
+    const user = await api_requests.getUserByToken();
+    if (user.type !== "Particulier") return { name: "home" };
+  }
 });
 
 export default router;
