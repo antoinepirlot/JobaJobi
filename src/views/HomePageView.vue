@@ -24,6 +24,7 @@ const onIntrestedClick = (idOffer, idUser) => {
 
   const addIntrestedToBackend = async (idOffer, idUser) => {
     try {
+      console.log(idOffer, idUser);
       const body = {
         idOffer: idOffer,
         idUser: idUser,
@@ -33,6 +34,7 @@ const onIntrestedClick = (idOffer, idUser) => {
         body: JSON.stringify(body),
         headers: {
           "Content-Type": "application/json",
+          Authorize: token,
           //TODO : add authorization
         },
       };
@@ -128,7 +130,7 @@ getAllOffers();
           "
           :user-type="user.type"
           @on-button-click="onButtonClick($event)"
-          @on-intrested-click="onIntrestedClick($event, user.idUser)"
+          @on-intrested-click="onIntrestedClick($event, user.id)"
         />
       </div>
     </div>
