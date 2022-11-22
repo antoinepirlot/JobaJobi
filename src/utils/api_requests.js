@@ -5,7 +5,7 @@ async function getFavorites() {
   const request = {
     method: "GET",
     headers: {
-      "Authorize": token,
+      Authorization: token,
       "Content-Type": "application/json"
     }
   }

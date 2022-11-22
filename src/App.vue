@@ -54,7 +54,9 @@ getUserFromSession();
     ></NavbarVue>
   </header>
 
-  <RouterView />
+  <Suspense>
+    <RouterView />
+  </Suspense>
 </template>
 
 <style>
