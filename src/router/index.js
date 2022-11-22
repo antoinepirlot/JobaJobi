@@ -17,19 +17,17 @@ const router = createRouter({
       path: "/:catchAll(.*)",
       name: "not found",
       component: HomePageView,
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
       path: "/",
       name: "home",
       component: HomePageView,
-    },
-    {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import("../views/AboutView.vue"),
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
       path: "/createJobOffer",
@@ -44,6 +42,9 @@ const router = createRouter({
       path: "/jobOfferDetails/:id",
       name: "jobOfferDetails",
       component: JobOfferDetailsView,
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
       path: "/login",
