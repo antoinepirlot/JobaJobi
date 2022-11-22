@@ -53,7 +53,6 @@ getUserFromSession();
       :is-connected="!token ? false : true"
     ></NavbarVue>
   </header>
-
   <Suspense>
     <RouterView />
   </Suspense>

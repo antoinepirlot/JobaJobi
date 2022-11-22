@@ -4,9 +4,10 @@ import router from "@/router";
 import api_requests from "@/utils/api_requests";
 import OfferCard from "@/components/OfferCard.vue";
 
-// if(!utils.isConnected()) {
-//   router.push("/login")
-// }
+const user = await api_requests.getUserByToken();
+if (user.type == "Company") {
+  router.push("/")
+}
 
 const favorites = ref([]);
 

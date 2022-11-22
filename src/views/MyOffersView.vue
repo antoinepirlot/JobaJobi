@@ -2,6 +2,7 @@
 import OfferCardVue from "../components/OfferCard.vue";
 import { ref } from "vue";
 import router from "../router/index.js";
+import utils from "@/utils/utils";
 
 
 const titleClass = ref("Mes offres d'emplois");
@@ -14,7 +15,7 @@ try {
     method: "GET",
     headers: {
         "Content-Type": "application/json",
-        'Authorization': localStorage.getItem('token')
+        'Authorization': utils.getItem('token')
     },
     };
     const response = await fetch("/api/users/getUserSession", options);
@@ -39,10 +40,11 @@ if(user.value.type!=="Entreprise") router.push("/");
     <h1>{{ titleClass }}</h1>
     <div class="cards-offers">
         <OfferCardVue
-          offertitle="test"
-          offer-description="description"
-          offer-type="contractType"
-          :id="idJobOffer"
+          :offer="{offerTitle:'test',
+            offerDescription:'description',
+            offerType:'contractType',
+            id:idJobOffer,
+          }"
         />
     </div>
   </div>
