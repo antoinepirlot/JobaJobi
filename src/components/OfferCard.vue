@@ -6,7 +6,10 @@ const props = defineProps({
     type: Object,
     required: true
   },
-
+  displayFavouriteCase: {
+    type: Boolean,
+    default: true,
+  },
 });
 //Get the token in the localStorage
 const token = localStorage.getItem("token");
@@ -22,6 +25,8 @@ const onButtonClick = () => {
 const onIntrestedClick = () => {
   emit("onIntrestedClick", props.id);
 };
+
+
 </script>
 
 <template>
@@ -30,7 +35,7 @@ const onIntrestedClick = () => {
     <div class="title">
       <h1>{{ offer.title }}</h1>
     </div>
-    <button class="star" @click="onIntrestedClick">
+    <button v-if="displayFavouriteCase ?? ''" class="star" @click="onIntrestedClick">
       <span class="fa fa-star"></span>
     </button>
     <div class="des">
@@ -38,6 +43,7 @@ const onIntrestedClick = () => {
       <div class="description">
         <p>{{ offer.description }}</p>
       </div>
+      <p>{{ offer.interestedUsersId.length }} personne(s) intéressée(s)</p>
 
       <button @click="onButtonClick">Voir plus</button>
     </div>

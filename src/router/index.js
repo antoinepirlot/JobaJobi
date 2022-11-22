@@ -60,7 +60,8 @@ const router = createRouter({
       name: "myOffers",
       component: MyOffersView,
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        requiresCompany: true,
       }
     },
     {
