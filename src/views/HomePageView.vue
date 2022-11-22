@@ -121,6 +121,12 @@ getAllOffers();
       <div v-for="offer in offers" :key="offer.id">
         <OfferCard
           :offer="offer"
+          :is-intrested="
+            offer.interestedUsersId.some((value) => value.idUser === user.id)
+              ? true
+              : false
+          "
+          :user-type="user.type"
           @on-button-click="onButtonClick($event)"
           @on-intrested-click="onIntrestedClick($event, user.idUser)"
         />
