@@ -121,6 +121,7 @@ getAllOffers();
     <div class="cards-offers">
       <div v-for="offer in offers" :key="offer.idJobOffer">
         <OfferCard
+          class="offerCard"
           :offer="offer"
           :user-type="user.type"
           :is-intrested="
