@@ -6,11 +6,12 @@ import api_requests from "../utils/api_requests";
 
 
 const titleClass = "Mes offres d'emplois";
-const user = await api_requests.getUserByToken();
-const idJobOffer = ref(1);
 
 const myJobOffers = await api_requests.getAllMyJobOffers();
-console.log(myJobOffers);
+
+const onButtonClick = (id) => {
+  router.push(`/jobOfferDetails/${id}`);
+};
 
 </script>
 
@@ -21,7 +22,7 @@ console.log(myJobOffers);
     <div v-else class="cards-offers">
       <div v-for="offer in myJobOffers" :key="offer.idJobOffer">
         <OfferCardVue class="offerCard"
-          :offer="offer"  :display-favourite-case="false"
+          :offer="offer"  :display-favourite-case="false" @on-button-click="onButtonClick($event)"
         />
       </div>
     </div>
