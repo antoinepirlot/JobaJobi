@@ -11,9 +11,6 @@ const props = defineProps({
     default: true,
   },
 });
-//Get the token in the localStorage
-const token = localStorage.getItem("token");
-
 const emit = defineEmits(["onButtonClick", "onIntrestedClick"]);
 
 const isIntrested = ref(null);
@@ -35,7 +32,7 @@ const onIntrestedClick = (e) => {
     <div class="title">
       <h1>{{ offer.title }}</h1>
     </div>
-    <button v-if="displayFavouriteCase ?? ''" class="star" @click="onIntrestedClick">
+    <button v-if="displayFavouriteCase" class="star" @click="onIntrestedClick">
       <span class="fa fa-star"></span>
     </button>
     <div class="des">
