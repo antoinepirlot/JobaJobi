@@ -8,6 +8,7 @@ import LogoutView from '../views/LogoutView.vue';
 import FavoritesView from "@/views/FavoritesView.vue";
 import JobOfferDetailsView from '../views/JobOfferDetailsView.vue'
 import api_requests from "@/utils/api_requests";
+import {useCounterStore} from '@/stores/counterPages'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -82,6 +83,8 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from) => {
+  const store = useCounterStore();
+  store.increment();
   if(to.meta.requiresAuth && !localStorage.getItem("token") && !sessionStorage
   .getItem("token")) return { name: 'login' }
   
