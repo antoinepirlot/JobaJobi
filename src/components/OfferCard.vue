@@ -19,10 +19,10 @@ const emit = defineEmits(["onButtonClick", "onIntrestedClick"]);
 const isIntrested = ref(null);
 
 const onButtonClick = () => {
-  emit("onButtonClick", props.id);
+  emit("onButtonClick", props.offer.idJobOffer);
 };
 
-const onIntrestedClick = () => {
+const onIntrestedClick = (e) => {
   emit("onIntrestedClick", props.id);
 };
 
