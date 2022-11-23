@@ -20,8 +20,7 @@ function toggleStayConnected() {
   stayConencted.value = !stayConencted.value;
 }
 
-const login = async (e) => {
-  e.preventDefault();
+const login = async () => {
   const user = {
     email: email.value,
     password: password.value
@@ -48,7 +47,7 @@ const login = async (e) => {
 
     <div class="form">
         <h1>Connexion</h1>
-        <form @submit="login" id="formLogin">
+        <form @submit.prevent="login" id="formLogin">
             <InputInFormVue
                 name="email"
                 labelName="Adresse email"
