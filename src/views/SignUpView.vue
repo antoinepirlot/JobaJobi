@@ -44,7 +44,7 @@ function toggleStayConnected() {
 async function signup(e) {
   e.preventDefault();
   errorMessage.value = "";
-  if(type === options[0]) {
+  if(type.value === options[0]) {
     if (lastName.value === "") {
       errorMessage.value = "Missing lastname";
       return;
