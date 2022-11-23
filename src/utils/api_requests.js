@@ -179,8 +179,7 @@ const login = async (user) => {
     };
     const response = await fetch("/api/auths/login", options);
     if (!response.ok) {
-      if(response.status===401) notification.value="L'adresse email ou le mot de passe est incorrect";
-      return;
+      if(response.status===401) return "L'adresse email ou le mot de passe est incorrect";
     }
     return await response.json();
   } catch (err) {

@@ -6,16 +6,21 @@ import SubmitButtonInFormVue from "../components/SubmitButtonInForm.vue";
 import NotificationSpanVue from "../components/NotificationSpan.vue";
 import api_requests from "@/utils/api_requests";
 
-if(localStorage.token) router.push("/");
+if(localStorage.token || sessionStorage.token) router.push("/");
 
-const email = ref('')
-const password = ref('')
-const notification = ref('')
+const email = ref('');
+const password = ref('');
+const notification = ref('');
+const stayConencted = ref(false);
 
 const goToSignUpPage = () => {
   router.push("/signup")
   return;
 };
+
+function toggleStayConnected() {
+  stayConencted.value = !stayConencted.value;
+}
 
 const login = async (e) => {
   e.preventDefault();
@@ -24,8 +29,15 @@ const login = async (e) => {
     password: password.value
   };
   const newUser = await api_requests.login(user);
-  if(!newUser) return;
-  localStorage.token=newUser.token;
+  if(typeof newUser !=="object") {
+    notification.value=newUser;
+    return;
+  }
+  if (stayConencted.value) {
+    window.localStorage.setItem("token", newUser.token);
+  } else {
+    window.sessionStorage.setItem("token", newUser.token);
+  }
   router.push("/");
   return;
 };
@@ -51,12 +63,19 @@ const login = async (e) => {
                 typeInput="password"
                 v-model="password"
             />  
+            <InputInFormVue
+                @click="toggleStayConnected"
+                type-input="checkbox"
+                label-name="Rester connecter"
+                name="stay_connected"
+                :required="false"
+            />
+            <NotificationSpanVue :notificationName="notification" color="red"/>
+            <SubmitButtonInFormVue name="Se connecter" />
             <div>
                 <span>Pas encore de compte ? </span>
                 <span @click="goToSignUpPage" class="goToAPage">Inscription</span>
             </div>
-            <NotificationSpanVue :notificationName="notification" color="red"/>
-            <SubmitButtonInFormVue name="Se connecter" />
         </form>
     </div>
 </template>
