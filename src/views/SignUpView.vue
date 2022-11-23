@@ -9,9 +9,6 @@ import SelectInForm from "@/components/SelectInForm.vue";
 import SubmitButtonInForm from "@/components/SubmitButtonInForm.vue";
 import TextAreaInForm from "@/components/TextAreaInForm.vue";
 
-if (utils.isConnected()) {
-  router.push("/");
-}
 
 const options = ["Particulier", "Entreprise"];
 

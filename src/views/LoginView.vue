@@ -6,8 +6,6 @@ import SubmitButtonInFormVue from "../components/SubmitButtonInForm.vue";
 import NotificationSpanVue from "../components/NotificationSpan.vue";
 import api_requests from "@/utils/api_requests";
 
-if(localStorage.token || sessionStorage.token) router.push("/");
-
 const email = ref('');
 const password = ref('');
 const notification = ref('');
