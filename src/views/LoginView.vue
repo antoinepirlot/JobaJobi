@@ -4,6 +4,7 @@ import router from "../router/index.js";
 import InputInFormVue from "../components/InputInForm.vue";
 import SubmitButtonInFormVue from "../components/SubmitButtonInForm.vue";
 import NotificationSpanVue from "../components/NotificationSpan.vue";
+import api_requests from "@/utils/api_requests";
 
 if(localStorage.token) router.push("/");
 
@@ -22,32 +23,14 @@ const login = async (e) => {
     email: email.value,
     password: password.value
   };
-  const newUser = await loginToBackend(user);
+  const newUser = await api_requests.login(user);
   if(!newUser) return;
   localStorage.token=newUser.token;
   router.push("/");
   return;
 };
 
-const loginToBackend = async (user) => {
-  try {
-    const options = {
-      method: "POST",
-      body: JSON.stringify(user),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    const response = await fetch("/api/auths/login", options);
-    if (!response.ok) {
-      if(response.status===401) notification.value="L'adresse email ou le mot de passe est incorrect";
-      return;
-    }
-    return await response.json();
-  } catch (err) {
-    console.error("error: ", err);
-  }
-};
+
 </script>
 
 <template>

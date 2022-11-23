@@ -168,6 +168,26 @@ async function getAllMyJobOffers() {
   }
 };
 
+const login = async (user) => {
+  try {
+    const options = {
+      method: "POST",
+      body: JSON.stringify(user),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const response = await fetch("/api/auths/login", options);
+    if (!response.ok) {
+      if(response.status===401) notification.value="L'adresse email ou le mot de passe est incorrect";
+      return;
+    }
+    return await response.json();
+  } catch (err) {
+    console.error("error: ", err);
+  }
+};
+
 
 export default {
   createJobOffer,
@@ -177,5 +197,6 @@ export default {
   getUserById,
   getUserByToken,
   signup,
-  getAllMyJobOffers
+  getAllMyJobOffers,
+  login
 };
