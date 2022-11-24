@@ -1,3 +1,5 @@
+import router from "@/router";
+
 /**
  * Check if the password1 is equal to password2
  * @param password1 string --> the first password to check
@@ -28,6 +30,14 @@ function getItem(itemName) {
 }
 
 /**
+ * Redirects to the offer with offer's id
+ * @param id the offer's id
+ */
+function goToOfferDetails (id) {
+  router.push(`/jobOfferDetails/${id}`);
+}
+
+/**
  * Check if the user is connected and return true or false
  * @return {boolean} true if the user is connected, otherwise false
  */
@@ -36,8 +46,12 @@ function isConnected() {
       || !!window.sessionStorage.getItem("token");
 }
 
+//Click on view more button --> go to JobOfferDetailsView
+
+
 export default {
   checkPassword,
   getItem,
+  goToOfferDetails,
   isConnected,
 };
