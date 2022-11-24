@@ -9,9 +9,6 @@ import SelectInForm from "@/components/SelectInForm.vue";
 import SubmitButtonInForm from "@/components/SubmitButtonInForm.vue";
 import TextAreaInForm from "@/components/TextAreaInForm.vue";
 
-if (utils.isConnected()) {
-  router.push("/");
-}
 
 const options = ["Particulier", "Entreprise"];
 
@@ -44,7 +41,7 @@ function toggleStayConnected() {
 async function signup(e) {
   e.preventDefault();
   errorMessage.value = "";
-  if(type === options[0]) {
+  if(type.value === options[0]) {
     if (lastName.value === "") {
       errorMessage.value = "Missing lastname";
       return;

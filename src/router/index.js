@@ -8,6 +8,7 @@ import LogoutView from "../views/LogoutView.vue";
 import FavoritesView from "@/views/FavoritesView.vue";
 import JobOfferDetailsView from "../views/JobOfferDetailsView.vue";
 import api_requests from "@/utils/api_requests";
+import utils from "@/utils/utils";
 import ProfilePageView from "../views/ProfilePageView.vue";
 
 const router = createRouter({
@@ -50,11 +51,17 @@ const router = createRouter({
       path: "/login",
       name: "login",
       component: LoginView,
+      meta: {
+        requiresNotConnected: true,
+      },
     },
     {
       path: "/signup",
       name: "sign up",
       component: SignUpView,
+      meta: {
+        requiresNotConnected: true,
+      },
     },
     {
       path: "/myOffers",
@@ -69,6 +76,9 @@ const router = createRouter({
       path: "/logout",
       name: "logout",
       component: LogoutView,
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
       path: "/favorites",
@@ -88,12 +98,10 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from) => {
-  if (
-    to.meta.requiresAuth &&
-    !localStorage.getItem("token") &&
-    !sessionStorage.getItem("token")
-  )
-    return { name: "login" };
+  if (to.meta.requiresAuth && !utils.isConnected()) return { name: "login" };
+
+  if (to.meta.requiresNotConnected && utils.isConnected())
+    return { name: "home" };
 
   if (to.meta.requiresCompany) {
     const user = await api_requests.getUserByToken();

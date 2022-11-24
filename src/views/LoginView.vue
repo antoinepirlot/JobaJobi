@@ -4,50 +4,42 @@ import router from "../router/index.js";
 import InputInFormVue from "../components/InputInForm.vue";
 import SubmitButtonInFormVue from "../components/SubmitButtonInForm.vue";
 import NotificationSpanVue from "../components/NotificationSpan.vue";
+import api_requests from "@/utils/api_requests";
 
-if(localStorage.token) router.push("/");
-
-const email = ref('')
-const password = ref('')
-const notification = ref('')
+const email = ref('');
+const password = ref('');
+const notification = ref('');
+const stayConencted = ref(false);
 
 const goToSignUpPage = () => {
   router.push("/signup")
   return;
 };
 
-const login = async (e) => {
-  e.preventDefault();
+function toggleStayConnected() {
+  stayConencted.value = !stayConencted.value;
+}
+
+const login = async () => {
   const user = {
     email: email.value,
     password: password.value
   };
-  const newUser = await loginToBackend(user);
-  if(!newUser) return;
-  localStorage.token=newUser.token;
+  const newUser = await api_requests.login(user);
+  if(typeof newUser !=="object") {
+    notification.value=newUser;
+    return;
+  }
+  if (stayConencted.value) {
+    window.localStorage.setItem("token", newUser.token);
+  } else {
+    window.sessionStorage.setItem("token", newUser.token);
+  }
   router.push("/");
   return;
 };
 
-const loginToBackend = async (user) => {
-  try {
-    const options = {
-      method: "POST",
-      body: JSON.stringify(user),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    const response = await fetch("/api/auths/login", options);
-    if (!response.ok) {
-      if(response.status===401) notification.value="L'adresse email ou le mot de passe est incorrect";
-      return;
-    }
-    return await response.json();
-  } catch (err) {
-    console.error("error: ", err);
-  }
-};
+
 </script>
 
 <template>
@@ -55,7 +47,7 @@ const loginToBackend = async (user) => {
 
     <div class="form">
         <h1>Connexion</h1>
-        <form @submit="login" id="formLogin">
+        <form @submit.prevent="login" id="formLogin">
             <InputInFormVue
                 name="email"
                 labelName="Adresse email"
@@ -68,12 +60,19 @@ const loginToBackend = async (user) => {
                 typeInput="password"
                 v-model="password"
             />  
+            <InputInFormVue
+                @click="toggleStayConnected"
+                type-input="checkbox"
+                label-name="Rester connecter"
+                name="stay_connected"
+                :required="false"
+            />
+            <NotificationSpanVue :notificationName="notification" color="red"/>
+            <SubmitButtonInFormVue name="Se connecter" />
             <div>
                 <span>Pas encore de compte ? </span>
                 <span @click="goToSignUpPage" class="goToAPage">Inscription</span>
             </div>
-            <NotificationSpanVue :notificationName="notification" color="red"/>
-            <SubmitButtonInFormVue name="Se connecter" />
         </form>
     </div>
 </template>

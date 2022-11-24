@@ -13,14 +13,13 @@ const props = defineProps({
   isIntrested: Boolean,
   userType: String,
 });
-
 const emit = defineEmits(["onButtonClick", "onIntrestedClick"]);
 
 const onButtonClick = () => {
   emit("onButtonClick", props.offer.idJobOffer);
 };
 
-const onIntrestedClick = () => {
+const onIntrestedClick = (e) => {
   emit("onIntrestedClick", props.offer.idJobOffer);
 };
 
