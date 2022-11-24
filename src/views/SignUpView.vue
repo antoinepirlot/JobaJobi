@@ -8,6 +8,7 @@ import api_requests from "@/utils/api_requests";
 import SelectInForm from "@/components/SelectInForm.vue";
 import SubmitButtonInForm from "@/components/SubmitButtonInForm.vue";
 import TextAreaInForm from "@/components/TextAreaInForm.vue";
+import NotificationSpan from "@/components/NotificationSpan.vue";
 
 
 const options = ["Particulier", "Entreprise"];
@@ -181,7 +182,7 @@ async function signup(e) {
           name="stay_connected"
       />
       <SubmitButtonInForm @click="signup" name="S'inscrire"/>
-      <ErrorMessage v-if="errorMessage !== ''" :error-message="errorMessage"/>
+      <NotificationSpan v-if="errorMessage !== ''" color="red" :notification-name="errorMessage"/>
     </form>
     <p>Déjà un compte?
       <span @click="goToConnectionPage" class="goToAPage">Connexion</span>
