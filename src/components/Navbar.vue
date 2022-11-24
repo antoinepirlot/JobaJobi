@@ -7,11 +7,12 @@ defineProps({
   isConnected: Boolean,
 });
 
-const user = ref([]);
-user.value = api_requests.getUserByToken;
+const user = ref();
+user.value = await api_requests.getUserByToken();
 </script>
 
 <template>
+  <!-- Not connected navbar-->
   <div v-if="!isConnected" class="wrapper">
     <nav>
       <ul class="navbarLink">
@@ -29,6 +30,7 @@ user.value = api_requests.getUserByToken;
     </nav>
   </div>
 
+  <!-- Connected as "Particulier" navbar-->
   <div v-else-if="user.type === 'Particulier'" class="wrapper">
     <nav>
       <ul class="navbarLink">
@@ -56,6 +58,7 @@ user.value = api_requests.getUserByToken;
     </nav>
   </div>
 
+  <!-- Connected as "Entreprise" navbar-->
   <div v-else class="wrapper">
     <nav>
       <ul>

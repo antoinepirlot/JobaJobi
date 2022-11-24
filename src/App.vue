@@ -19,7 +19,9 @@ const store = useCounterStore();
 
 <template>
   <header>
-    <NavbarVue :is-connected="utils.isConnected()"></NavbarVue>
+    <Suspense>
+      <NavbarVue :is-connected="utils.isConnected()"></NavbarVue>
+    </Suspense>
   </header>
 
   <Suspense>
