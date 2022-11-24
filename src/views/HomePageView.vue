@@ -15,39 +15,8 @@ const onButtonClick = (id) => {
 };
 
 //Click on intrested button --> add intrest to an offer
-const onIntrestedClick = (idOffer, idUser) => {
-  // Backend Request /api/jobOffers/createIntrested
-  //add authorize
-
-  const addIntrestedToBackend = async (idOffer, idUser) => {
-    try {
-      console.log(idOffer, idUser);
-      const body = {
-        idOffer: idOffer,
-        idUser: idUser,
-      };
-      const options = {
-        method: "POST",
-        body: JSON.stringify(body),
-        headers: {
-          "Content-Type": "application/json",
-          Authorize: token,
-          //TODO : add authorization
-          Authorization: token,
-        },
-      };
-      const response = await fetch("/api/jobOffers/createIntrested", options);
-      if (!response.ok) {
-        throw new Error(
-          "fetch error : " + response.status + " : " + response.statusText
-        );
-      }
-      return await response.json();
-    } catch (err) {
-      console.error("error: ", err);
-    }
-  };
-  addIntrestedToBackend(idOffer, idUser);
+const onIntrestedClick = async (idOffer, idUser) => {
+  await api_requests.addInterest(idOffer, idUser);
 };
 
 //Get User Session

@@ -1,5 +1,30 @@
 import utils from "@/utils/utils";
 
+async function addInterest(idOffer, idUser) {
+  try {
+    const options = {
+      method: "POST",
+      body: JSON.stringify({
+        idOffer: idOffer,
+        idUser: idUser
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: utils.getItem("token"),
+      },
+    };
+    const response = await fetch("/api/jobOffers/createIntrested", options);
+    if (!response.ok) {
+      throw new Error(
+          "fetch error : " + response.status + " : " + response.statusText
+      );
+    }
+    return await response.json();
+  } catch (err) {
+    console.error("error: ", err);
+  }
+}
+
 async function createJobOffer(newJobOffer) {
   let token = utils.getItem("token");
   try {
@@ -213,6 +238,7 @@ async function getAllJobOffers() {
 }
 
 export default {
+  addInterest,
   createJobOffer,
   getFavorites,
   getInterestedByIdJobOffer,
