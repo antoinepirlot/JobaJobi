@@ -5,12 +5,7 @@ import api_requests from "@/utils/api_requests";
 import OfferCard from "@/components/OfferCard.vue";
 
 const favorites = ref([]);
-
-async function loadFavorites() {
-  const temp = await api_requests.getFavorites();
-  favorites.value = temp;
-}
-loadFavorites().then();
+favorites.value = await api_requests.getFavorites();
 </script>
 
 <template>
