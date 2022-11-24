@@ -178,8 +178,9 @@ async function signup(e) {
           type-input="checkbox"
           label-name="Rester connecter"
           name="stay_connected"
+          :required="false"
       />
-      <SubmitButtonInForm @click="signup" name="S'inscrire"/>
+      <SubmitButtonInForm name="S'inscrire"/>
       <NotificationSpan v-if="errorMessage !== ''" color="red" :notification-name="errorMessage"/>
     </form>
     <p>Déjà un compte?
