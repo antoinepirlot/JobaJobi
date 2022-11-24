@@ -51,11 +51,11 @@ const onIntrestedClick = (idOffer, idUser) => {
 };
 
 //Get User Session
-user.value = api_requests.getUserByToken();
+user.value = await api_requests.getUserByToken();
 
 //Get all offers
 
-offers.value = api_requests.getAllJobOffers();
+offers.value = await api_requests.getAllJobOffers();
 </script>
 
 <template>
@@ -68,9 +68,7 @@ offers.value = api_requests.getAllJobOffers();
           :offer="offer"
           :user-type="user.type"
           :is-intrested="
-            offer.interestedUsersId.some((value) => value.idUser === user.id)
-              ? true
-              : false
+            !!offer.interestedUsersId.some((value) => value.idUser === user.id)
           "
           @on-button-click="onButtonClick($event)"
           @on-intrested-click="onIntrestedClick($event, user.id)"
