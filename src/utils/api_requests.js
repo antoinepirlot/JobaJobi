@@ -1,8 +1,7 @@
 import utils from "@/utils/utils";
 
 async function createJobOffer(newJobOffer) {
-  let token = localStorage.getItem("token");
-  if (token === null) token = sessionStorage.getItem("token");
+  let token = utils.getItem("token");
   try {
     const options = {
       method: "POST",
@@ -86,8 +85,7 @@ async function getJobOfferById(id) {
 }
 
 async function getUserById(id) {
-  let token = localStorage.getItem("token");
-  if (token === null) token = sessionStorage.getItem("token");
+  let token = utils.getItem("token");
   try {
     const options = {
       method: "GET",
@@ -109,8 +107,7 @@ async function getUserById(id) {
 }
 
 async function getUserByToken() {
-  let token = localStorage.getItem("token");
-  if (token === null) token = sessionStorage.getItem("token");
+  let token = utils.getItem("token");
   try {
     const options = {
       method: "GET",
@@ -149,8 +146,7 @@ async function signup(user) {
 }
 
 async function getAllMyJobOffers() {
-  let token = localStorage.getItem("token");
-  if (token === null) token = sessionStorage.getItem("token");
+  let token = utils.getItem("token");
   try {
     const options = {
       method: "GET",
@@ -195,8 +191,7 @@ const login = async (user) => {
 };
 
 async function getAllJobOffers() {
-  let token = localStorage.getItem("token");
-  if (token === null) token = sessionStorage.getItem("token");
+  let token = utils.getItem("token");
   try {
     const options = {
       method: "GET",
