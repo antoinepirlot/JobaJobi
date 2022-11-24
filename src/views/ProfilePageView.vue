@@ -1,18 +1,13 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import {ref, onMounted} from "vue";
 import router from "@/router";
 import api_requests from "@/utils/api_requests";
 import utils from "@/utils/utils";
 
 let user = ref([]);
 
-//Get the token in the localStorage
-const token = localStorage.getItem("token");
-
 //fetch the user session
-onMounted(async () => {
-  user.value = await api_requests.getUserByToken();
-});
+user.value = await api_requests.getUserByToken();
 </script>
 
 <template>

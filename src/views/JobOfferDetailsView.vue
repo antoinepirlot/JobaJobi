@@ -1,5 +1,4 @@
 <script async setup>
-import { ref, reactive } from "vue";
 import ListInterested from "@/components/ListInterested.vue"
 import router from "../router/index.js";
 import api_requests from "@/utils/api_requests";

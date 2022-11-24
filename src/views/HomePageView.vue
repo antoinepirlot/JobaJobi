@@ -4,10 +4,6 @@ import { ref } from "vue";
 import router from "@/router";
 import api_requests from "../utils/api_requests";
 
-if (!localStorage.getItem("token")) {
-  router.push("/login");
-}
-
 const titleClass = ref("Toutes les offres");
 const token = localStorage.getItem("token");
 const offers = ref([]);
