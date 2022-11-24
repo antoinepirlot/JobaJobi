@@ -9,7 +9,6 @@ import SubmitButtonInForm from "@/components/SubmitButtonInForm.vue";
 import TextAreaInForm from "@/components/TextAreaInForm.vue";
 import NotificationSpan from "@/components/NotificationSpan.vue";
 
-
 const options = ["Particulier", "Entreprise"];
 
 //Form values
@@ -124,7 +123,7 @@ async function signup(e) {
 <template>
   <div class="form">
     <h1>Inscription</h1>
-    <form>
+    <form @submit.prevent="signup">
       <div v-if="type===options[0]">
         <InputInForm v-model="lastName" type-input="text" label-name="Nom" name="lastname"/>
         <InputInForm v-model="firstName" type-input="text" label-name="Prénom" name="firstname"/>
