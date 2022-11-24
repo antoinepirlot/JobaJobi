@@ -49,15 +49,14 @@ ul {
   justify-content: space-between;
   text-align: center;
 }
-li {
+.navbarLink li {
   padding: 1rem 2rem 1.15rem;
   text-transform: uppercase;
   cursor: pointer;
-  color: #ebebeb;
   min-width: 80px;
 }
 
-li:hover {
+.navbarLink li:hover {
   background-color: cornflowerblue;
   background-size: 100% 100%;
   color: #27262c;

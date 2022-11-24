@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import {ref} from "vue";
 import api_requests from "../utils/api_requests";
 
 defineProps({
@@ -14,25 +14,44 @@ user.value = api_requests.getUserByToken;
 <template>
   <div v-if="!isConnected" class="wrapper">
     <nav>
-      <ul>
-        <li>
-          <RouterLink to="/">Home</RouterLink>
-        </li>
-        <li><RouterLink to="/login">Connexion</RouterLink></li>
-        <li><RouterLink to="/signup">S'inscrire</RouterLink></li>
+      <ul class="navbarLink">
+        <RouterLink to="/login">
+          <li>
+            Connexion
+          </li>
+        </RouterLink>
+        <RouterLink to="/signup">
+          <li>
+            S'inscrire
+          </li>
+        </RouterLink>
       </ul>
     </nav>
   </div>
 
-  <div v-else-if="userType === 'Particulier'" class="wrapper">
+  <div v-else-if="user.type === 'Particulier'" class="wrapper">
     <nav>
-      <ul>
-        <li>
-          <RouterLink to="/">Home</RouterLink>
-        </li>
-        <li><RouterLink to="/favorites">Mes favoris</RouterLink></li>
-        <li><RouterLink to="/profile">Profil</RouterLink></li>
-        <li><RouterLink to="/logout">Déconnexion</RouterLink></li>
+      <ul class="navbarLink">
+        <RouterLink to="/">
+          <li>
+            Home
+          </li>
+        </RouterLink>
+        <RouterLink to="/favorites">
+          <li>
+            Mes favoris
+          </li>
+        </RouterLink>
+        <RouterLink to="/profile">
+          <li>
+            Profil
+          </li>
+        </RouterLink>
+        <RouterLink to="/logout">
+          <li>
+            Déconnexion
+          </li>
+        </RouterLink>
       </ul>
     </nav>
   </div>
@@ -40,16 +59,26 @@ user.value = api_requests.getUserByToken;
   <div v-else class="wrapper">
     <nav>
       <ul>
-        <li>
-          <RouterLink to="/">Home</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/createJobOffer"
-            >Créer une offre d'emploie</RouterLink
-          >
-        </li>
-        <li><RouterLink to="/profile">Profil</RouterLink></li>
-        <li><RouterLink to="/logout">Déconnexion</RouterLink></li>
+        <RouterLink to="/">
+          <li>
+            Home
+          </li>
+        </RouterLink>
+        <RouterLink to="/createJobOffer">
+          <li>
+            Créer une offre d'emploi
+          </li>
+        </RouterLink>
+        <RouterLink to="/profile">
+          <li>
+            Profil
+          </li>
+        </RouterLink>
+        <RouterLink to="/logout">
+          <li>
+            Déconnexion
+          </li>
+        </RouterLink>
       </ul>
     </nav>
   </div>
