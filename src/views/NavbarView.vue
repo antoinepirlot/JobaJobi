@@ -2,6 +2,7 @@
 import {ref} from "vue";
 import api_requests from "../utils/api_requests";
 import NavbarElement from "@/components/NavbarElement.vue";
+import utils from "@/utils/utils";
 
 defineProps({
   // userType: String,
@@ -9,9 +10,14 @@ defineProps({
 });
 
 const user = ref();
-user.value = await api_requests.getUserByToken();
+if (utils.isConnected()) {
+  user.value = await api_requests.getUserByToken();
+}
 
-function isParticular() {
+async function isParticular() {
+  if (!user.value) {
+    user.value = await api_requests.getUserByToken();
+  }
   return user.value.type === "Particulier";
 }
 </script>
