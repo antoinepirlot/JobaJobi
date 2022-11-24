@@ -61,7 +61,7 @@ user.value = await api_requests.getUserByToken();
   <!-- Connected as "Entreprise" navbar-->
   <div v-else class="wrapper">
     <nav>
-      <ul>
+      <ul class="navbarLink">
         <RouterLink to="/">
           <li>
             Home
