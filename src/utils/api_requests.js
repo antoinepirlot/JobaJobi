@@ -1,8 +1,7 @@
 import utils from "@/utils/utils";
 
 async function createJobOffer(newJobOffer) {
-  let token = localStorage.getItem("token");
-  if(token === null) token = sessionStorage.getItem("token");
+  const token = utils.getItem("token");
   try {
     const options = {
       method: "POST",

@@ -4,6 +4,8 @@ import SelectInFormVue from "../components/SelectInForm.vue";
 import InputInFormVue from "../components/InputInForm.vue";
 import TextAreaInFormVue from "../components/TextAreaInForm.vue";
 import SubmitButtonInFormVue from "../components/SubmitButtonInForm.vue";
+import NotificationSpanVue from "../components/NotificationSpan.vue";
+
 import router from "../router/index.js";
 import api_requests from "@/utils/api_requests";
 
@@ -45,59 +47,52 @@ const addJobOffer = async (e) => {
   router.push("/");
   return;
 };
-
-
 </script>
 
 <template>
-  <h1 class="centerFormElements">{{ titleClass }}</h1>
+  <h1 class="centerElementsOnThePage">{{ titleClass }}</h1>
 
   <form @submit="addJobOffer" id="formAddJobOffer">
     <InputInFormVue
-      class="centerFormElements"
+      class="centerElementsOnThePage"
       name="offerTitle"
       labelName="Titre de l'offre"
       typeInput="text"
       v-model="offerTitle"
     />
     <InputInFormVue
-      class="centerFormElements"
+      class="centerElementsOnThePage"
       name="contact_email"
       labelName="Mail de contact"
       typeInput="email"
       v-model="mailContact"
     />
     <SelectInFormVue
-      class="centerFormElements"
+      class="centerElementsOnThePage"
       name="contract_type"
       labelName="Type de contrat"
       v-bind:options="typesContract"
       v-model="typeContract"
     />
     <TextAreaInFormVue
-      class="centerFormElements"
+      class="centerElementsOnThePage"
       name="description"
       labelName="Description"
       rows="8"
       cols="50"
       v-model="description"
     />
-    <p v-if="isVisible" id="errorMsgFormCreate" class="centerFormElements">
-      Vous devez remplir tous les champs du formulaire
-    </p>
-    <SubmitButtonInFormVue class="centerFormElements" name="Créer" />
+    <NotificationSpanVue
+      v-if="isVisible"
+      class="centerElementsOnThePage"
+      notificationName="Vous devez remplir tous les champs du formulaire"
+      color="red"
+    />
+    <SubmitButtonInFormVue class="centerElementsOnThePage" name="Créer" />
   </form>
 </template>
 
 <style>
-#errorMsgFormCreate {
-  color: red;
-}
-
-.centerFormElements {
-  padding-inline: 33%;
-  line-height: 2em;
-}
 
 /***************************************************************************************
 * Title: Comment faire un bouton Css arrondi?
