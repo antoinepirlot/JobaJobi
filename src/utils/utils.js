@@ -23,9 +23,6 @@ function getItem(itemName) {
   let item = localStorage.getItem(itemName);
   if(!item) {
     item = sessionStorage.getItem(itemName);
-    if(!item) {
-      throw new Error("No token");
-    }
   }
   return item;
 }
