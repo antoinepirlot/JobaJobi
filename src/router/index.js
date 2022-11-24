@@ -90,10 +90,9 @@ const router = createRouter({
       path: "/profile",
       name: "profile",
       component: ProfilePageView,
-      // meta: {
-      //   requiresAuth: true,
-      //   requiresParticular: true,
-      // },
+      meta: {
+        requiresAuth: true,
+      },
     },
   ],
 });
