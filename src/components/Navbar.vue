@@ -1,8 +1,14 @@
 <script setup>
+import { ref } from "vue";
+import api_requests from "../utils/api_requests";
+
 defineProps({
-  userType: String,
+  // userType: String,
   isConnected: Boolean,
 });
+
+const user = ref([]);
+user.value = api_requests.getUserByToken;
 </script>
 
 <template>

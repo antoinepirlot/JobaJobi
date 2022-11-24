@@ -5,27 +5,21 @@ import router from "./router";
 import NavbarVue from "./components/Navbar.vue";
 import api_requests from "./utils/api_requests";
 import { useCounterStore } from "./stores/counterPages.js";
+import utils from "./utils/utils";
 
-const token = localStorage.getItem("token");
-if (!token) {
-  router.push("/login");
-} else {
-  router.push("/");
-}
-
-const user = ref([]);
-//Get User Session
-user.value = api_requests.getUserByToken();
+// const token = localStorage.getItem("token");
+// if (!token) {
+//   router.push("/login");
+// } else {
+//   router.push("/");
+// }
 
 const store = useCounterStore();
 </script>
 
 <template>
   <header>
-    <NavbarVue
-      :user-type="user.type"
-      :is-connected="!token ? false : true"
-    ></NavbarVue>
+    <NavbarVue :is-connected="utils.isConnected()"></NavbarVue>
   </header>
 
   <Suspense>
