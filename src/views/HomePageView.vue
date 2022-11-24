@@ -11,7 +11,7 @@ const user = ref([]);
 
 //Click on view more button --> go to JobOfferDetailsView
 const onButtonClick = (id) => {
-  router.push(`/jobOfferDetails?id=${id}`);
+  router.push(`/jobOfferDetails/${id}`);
 };
 
 //Click on intrested button --> add intrest to an offer
