@@ -7,13 +7,6 @@ import api_requests from "./utils/api_requests";
 import { useCounterStore } from "./stores/counterPages.js";
 import utils from "./utils/utils";
 
-// const token = localStorage.getItem("token");
-// if (!token) {
-//   router.push("/login");
-// } else {
-//   router.push("/");
-// }
-
 const store = useCounterStore();
 </script>
 
