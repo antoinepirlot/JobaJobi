@@ -4,43 +4,57 @@ import { ref } from "vue";
 const props = defineProps({
   offer: {
     type: Object,
-    required: true
+    required: true,
   },
   displayFavouriteCase: {
     type: Boolean,
     default: true,
   },
+  isIntrested: Boolean,
+  userType: String,
 });
 const emit = defineEmits(["onButtonClick", "onIntrestedClick"]);
-
-const isIntrested = ref(null);
 
 const onButtonClick = () => {
   emit("onButtonClick", props.offer.idJobOffer);
 };
 
 const onIntrestedClick = (e) => {
-  emit("onIntrestedClick", props.id);
+  emit("onIntrestedClick", props.offer.idJobOffer);
 };
-
-
 </script>
 
 <template>
   <div class="card">
     <div class="image"></div>
     <div class="title">
-      <h1>{{ offer.title }}</h1>
+      <h1>{{ !offer.title ? "Titre non défini" : offer.title }}</h1>
     </div>
-    <button v-if="displayFavouriteCase" class="star" @click="onIntrestedClick">
-      <span class="fa fa-star"></span>
+    <button
+      v-if="userType === 'Particulier' && !isIntrested && !displayFavouriteCase"
+      class="star"
+      @click="onIntrestedClick"
+    >
+      love it!
     </button>
     <div class="des">
-      <h2>{{ !offer.contractType ? "Type de contrat non défini" : offer.contractType }}</h2>
-      <div class="description">
-        <p>{{ offer.description }}</p>
+      <h2>
+        {{
+          !offer.contractType
+            ? "Type de contrat non défini"
+            : offer.contractType
+        }}
+      </h2>
+      <div class="date">
+        <p>
+          {{
+            !offer.publicationDate ? "Date non définie" : offer.publicationDate
+          }}
+        </p>
       </div>
-      <p>{{ offer.interestedUsersId.length }} personne(s) intéressée(s)</p>
+      <p v-if="displayFavouriteCase">
+        {{ offer.interestedUsersId.length }} personne(s) intéressée(s)
+      </p>
 
       <button @click="onButtonClick">Voir plus</button>
     </div>
@@ -48,7 +62,8 @@ const onIntrestedClick = (e) => {
 </template>
 
 <style>
-.description {
+.date {
+  margin-top: 10%;
   width: auto;
   height: 50px;
   overflow: hidden;
@@ -61,7 +76,7 @@ const onIntrestedClick = (e) => {
 .star {
   display: flex;
   position: absolute;
-  top: -5%;
+  top: -10%;
   right: 7%;
 }
 
