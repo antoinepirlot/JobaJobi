@@ -1,9 +1,6 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
-import { ref } from "vue";
-import router from "./router";
+import { RouterView } from "vue-router";
 import NavbarView from "./views/NavbarView.vue";
-import api_requests from "./utils/api_requests";
 import { useCounterStore } from "./stores/counterPages.js";
 import utils from "./utils/utils";
 
