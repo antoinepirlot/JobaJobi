@@ -22,8 +22,6 @@ const onButtonClick = () => {
 const onIntrestedClick = (e) => {
   emit("onIntrestedClick", props.offer.idJobOffer);
 };
-
-// v-if="displayFavouriteCase ?? ''"
 </script>
 
 <template>
