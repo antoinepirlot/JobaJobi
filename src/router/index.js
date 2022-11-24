@@ -95,18 +95,14 @@ const router = createRouter({
 router.beforeEach(async (to, from) => {
   const store = useCounterStore();
   store.increment();
+  // if not connected
   if(to.meta.requiresAuth && !utils.isConnected()) return { name: 'login' }
-
+  
   if(to.meta.requiresNotConnected && utils.isConnected()) return { name: 'home' }
   
-  if(to.meta.requiresCompany){
-    const user = await api_requests.getUserByToken();
-    if(user.type !== "Entreprise") return { name: 'home'}
-  }
-  if(to.meta.requiresParticular){
-    const user = await api_requests.getUserByToken();
-    if(user.type !== "Particulier") return { name: 'home'}
-  }
+  const user = await api_requests.getUserByToken();
+  if(to.meta.requiresCompany && user.type !== "Entreprise") return { name: 'home'}
+  if(to.meta.requiresParticular && user.type !== "Particulier") return { name: 'home'}
 })
 
 export default router;

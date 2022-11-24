@@ -15,13 +15,20 @@ if(isCompanyOwnerOfJobOffer){
 </script>
 
 <template>
-    <h1>{{offer.title}}</h1>
-    <h4>Date de publication : {{offer.publicationDate}}</h4>
-    <h4>Description de l'entreprise : </h4>
-    <p>Nom de l'entreprise : {{companyOfTheOffer.companyName}}</p>
-    <p>{{companyOfTheOffer.companyDescription}}</p>
-    <h4>Description de l'offre : </h4>
-    <p>{{offer.description}}</p>
-    <h4>Mail de contact : {{offer.contactMail}}</h4>
-    <ListInterested v-if="isCompanyOwnerOfJobOffer" v-bind:allInterested="allInterested"/>
+    <h1 class="littleSpace">{{offer.title}}</h1>
+    <h3 class="littleSpace">Date de publication : {{offer.publicationDate}}</h3>
+    <h4 class="littleSpace">Description de l'entreprise : </h4>
+    <p class="littleSpace">Nom de l'entreprise : {{companyOfTheOffer.companyName}}</p>
+    <p class="littleSpace">{{companyOfTheOffer.companyDescription}}</p>
+    <h4 class="littleSpace">Description de l'offre : </h4>
+    <p class="littleSpace">{{offer.description}}</p>
+    <h4 class="littleSpace">Mail de contact : {{offer.contactMail}}</h4>
+    <ListInterested class="littleSpace" v-if="isCompanyOwnerOfJobOffer && allInterested.length!=0" v-bind:allInterested="allInterested"/>
 </template>
+
+<style>
+.littleSpace{
+  padding-inline: 10px;
+  line-height: 1em;
+}
+</style>

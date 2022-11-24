@@ -29,7 +29,7 @@ async function getFavorites() {
   const request = {
     method: "GET",
     headers: {
-      Authorization: token,
+      "Authorization": token,
       "Content-Type": "application/json"
     }
   }
@@ -43,10 +43,12 @@ async function getFavorites() {
 }
 
 async function getInterestedByIdJobOffer(id) {
+  const token = utils.getItem("token");
   try {
     const options = {
       method: "GET",
       headers: {
+        "Authorization": token,
         "Content-Type": "application/json",
       },
     };
@@ -63,10 +65,12 @@ async function getInterestedByIdJobOffer(id) {
 };
 
 async function getJobOfferById(id) {
+  const token = utils.getItem("token");
   try {
     const options = {
       method: "GET",
       headers: {
+        "Authorization": token,
         "Content-Type": "application/json",
       },
     };
@@ -83,8 +87,7 @@ async function getJobOfferById(id) {
 };
 
 async function getUserById(id) {
-  let token = localStorage.getItem("token");
-  if(token === null) token = sessionStorage.getItem("token");
+  const token = utils.getItem("token");
   try {
     const options = {
       method: "GET",
@@ -106,8 +109,7 @@ async function getUserById(id) {
 };
 
 async function getUserByToken() {
-  let token = localStorage.getItem("token");
-  if(token === null) token = sessionStorage.getItem("token");
+  const token = utils.getItem("token");
   try {
     const options = {
       method: "GET",

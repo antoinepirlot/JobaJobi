@@ -16,3 +16,8 @@
 .offerCard {
   float: left;
 }
+
+.centerElementsOnThePage {
+  padding-inline: 33%;
+  line-height: 2em;
+}
