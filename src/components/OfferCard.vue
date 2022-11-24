@@ -7,7 +7,7 @@ const props = defineProps({
     required: true,
   },
   displayFavouriteCase: {
-    type: Boolean,
+    type: Object,
     default: true,
   },
   isIntrested: Boolean,
@@ -20,6 +20,7 @@ const onButtonClick = () => {
 };
 
 const onIntrestedClick = (e) => {
+  props.displayFavouriteCase.value = false;
   emit("onIntrestedClick", props.offer.idJobOffer);
 };
 </script>
@@ -31,7 +32,7 @@ const onIntrestedClick = (e) => {
       <h1>{{ !offer.title ? "Titre non défini" : offer.title }}</h1>
     </div>
     <button
-      v-if="userType === 'Particulier' && !isIntrested && !displayFavouriteCase"
+      v-if="userType === 'Particulier' && !isIntrested && displayFavouriteCase.value"
       class="star"
       @click="onIntrestedClick"
     >

@@ -41,7 +41,7 @@ offers.value = await api_requests.getAllJobOffers();
           "
           @on-button-click="onButtonClick($event)"
           @on-intrested-click="onIntrestedClick($event, user.id)"
-          :display-favourite-case="false"
+          :display-favourite-case="ref(true)"
         />
       </div>
     </div>

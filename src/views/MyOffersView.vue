@@ -22,7 +22,7 @@ const onButtonClick = (id) => {
     <div v-else class="cards-offers">
       <div v-for="offer in myJobOffers" :key="offer.idJobOffer">
         <OfferCardVue class="offerCard"
-          :offer="offer"  :display-favourite-case="false" @on-button-click="onButtonClick($event)"
+          :offer="offer"  :display-favourite-case="ref(false)" @on-button-click="onButtonClick($event)"
         />
       </div>
     </div>
