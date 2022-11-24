@@ -133,6 +133,7 @@ getAllOffers();
           "
           @on-button-click="onButtonClick($event)"
           @on-intrested-click="onIntrestedClick($event, user.id)"
+          :display-favourite-case="false"
         />
       </div>
     </div>

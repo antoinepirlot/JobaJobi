@@ -34,7 +34,7 @@ const onIntrestedClick = () => {
       <h1>{{ !offer.title ? "Titre non défini" : offer.title }}</h1>
     </div>
     <button
-      v-if="userType === 'Particulier' && !isIntrested"
+      v-if="userType === 'Particulier' && !isIntrested && !displayFavouriteCase"
       class="star"
       @click="onIntrestedClick"
     >
@@ -55,7 +55,9 @@ const onIntrestedClick = () => {
           }}
         </p>
       </div>
-      <p>{{ offer.interestedUsersId.length }} personne(s) intéressée(s)</p>
+      <p v-if="displayFavouriteCase">
+        {{ offer.interestedUsersId.length }} personne(s) intéressée(s)
+      </p>
 
       <button @click="onButtonClick">Voir plus</button>
     </div>
