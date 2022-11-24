@@ -85,6 +85,10 @@ const router = createRouter({
       path: "/favorites",
       name: "favorites",
       component: FavoritesView,
+      meta: {
+        requiresAuth: true,
+        requiresParticular: true
+      }
     },
     {
       path: "/profile",
@@ -106,9 +110,11 @@ router.beforeEach(async (to, from) => {
 
   if(to.meta.requiresNotConnected && utils.isConnected()) return { name: 'home' }
 
-  const user = await api_requests.getUserByToken();
-  if(to.meta.requiresCompany && user.type !== "Entreprise") return { name: 'home'}
-  if(to.meta.requiresParticular && user.type !== "Particulier") return { name: 'home'}
+  if(utils.isConnected()) {
+    const user = await api_requests.getUserByToken();
+    if (to.meta.requiresCompany && user.type !== "Entreprise") return {name: 'home'}
+    if (to.meta.requiresParticular && user.type !== "Particulier") return {name: 'home'}
+  }
 })
 
 export default router;
