@@ -44,6 +44,8 @@ const getUserFromSession = async () => {
 };
 
 getUserFromSession();
+import { useCounterStore } from "./stores/counterPages.js";
+const store = useCounterStore();
 </script>
 
 <template>
@@ -53,9 +55,13 @@ getUserFromSession();
       :is-connected="!token ? false : true"
     ></NavbarVue>
   </header>
+
   <Suspense>
     <RouterView />
   </Suspense>
+  <footer>
+    <p>Nombre de page(s) consultée(s) : {{ store.counterPages }}</p>
+  </footer>
 </template>
 
 <style>
