@@ -35,3 +35,9 @@ if(utils.isConnected()) {
     </nav>
   </div>
 </template>
+
+<style>
+.wrapper {
+  margin-bottom: 50px;
+}
+</style>
