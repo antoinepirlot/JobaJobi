@@ -72,6 +72,7 @@ async function getInterestedByIdJobOffer(id) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        Authorization: utils.getItem("token")
       },
     };
     const response = await fetch(
@@ -95,6 +96,7 @@ async function getJobOfferById(id) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        Authorization: utils.getItem("token")
       },
     };
     const response = await fetch("/api/jobOffers/id/" + id, options);
