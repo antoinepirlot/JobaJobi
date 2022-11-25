@@ -5,6 +5,7 @@ import InputInFormVue from "../components/InputInForm.vue";
 import SubmitButtonInFormVue from "../components/SubmitButtonInForm.vue";
 import NotificationSpanVue from "../components/NotificationSpan.vue";
 import api_requests from "@/utils/api_requests";
+import navbar_variables from "@/utils/navbar_variables";
 
 const email = ref('');
 const password = ref('');
@@ -36,10 +37,9 @@ const login = async () => {
     window.sessionStorage.setItem("token", newUser.token);
   }
   router.push("/");
+  await navbar_variables.changeIsUser();
   return;
 };
-
-
 </script>
 
 <template>

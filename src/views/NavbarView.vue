@@ -3,23 +3,11 @@ import {ref} from "vue";
 import api_requests from "../utils/api_requests";
 import NavbarElement from "@/components/NavbarElement.vue";
 import utils from "@/utils/utils";
+import navbar_variables from "@/utils/navbar_variables";
 
-defineProps({
-  // userType: String,
-  isConnected: Boolean,
-});
-
-const user = ref();
-if (utils.isConnected()) {
-  user.value = await api_requests.getUserByToken();
-}
-
-async function isParticular() {
-  if (!user.value) {
-    user.value = await api_requests.getUserByToken();
-  }
-  return user.value.type === "Particulier";
-}
+const user = navbar_variables.getUser();
+const isConnected = navbar_variables.getIsConnected();
+const isParticular = navbar_variables.getIsParticular();
 </script>
 
 <template>
@@ -33,10 +21,10 @@ async function isParticular() {
         <NavbarElement v-if="!isConnected" path="/login" message="Connexion"/>
         <NavbarElement v-if="!isConnected" path="/signup" message="S'inscrire"/>
 
-        <NavbarElement v-if="isConnected && isParticular()" path="/favorites" message="Mes favoris"/>
+        <NavbarElement v-if="isConnected && isParticular" path="/favorites" message="Mes favoris"/>
 
-        <NavbarElement v-if="isConnected && !isParticular()" path="/myOffers" message="Mes offres d'emplois"/>
-        <NavbarElement v-if="isConnected && !isParticular()" path="/createJobOffer" message="Créer une offre d'emploi"/>
+        <NavbarElement v-if="isConnected && !isParticular" path="/myOffers" message="Mes offres d'emplois"/>
+        <NavbarElement v-if="isConnected && !isParticular" path="/createJobOffer" message="Créer une offre d'emploi"/>
 
         <NavbarElement v-if="isConnected" path="/logout" message="Déconnexion"/>
       </ul>

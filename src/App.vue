@@ -10,7 +10,7 @@ const store = useCounterStore();
 <template>
   <header>
     <Suspense>
-      <NavbarView :is-connected="utils.isConnected()"></NavbarView>
+      <NavbarView/>
     </Suspense>
   </header>
 
