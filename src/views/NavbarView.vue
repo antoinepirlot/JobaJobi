@@ -8,6 +8,10 @@ import navbar_variables from "@/utils/navbar_variables";
 const user = navbar_variables.getUser();
 const isConnected = navbar_variables.getIsConnected();
 const isParticular = navbar_variables.getIsParticular();
+
+if(utils.isConnected()) {
+  navbar_variables.changeIsUser();
+}
 </script>
 
 <template>
