@@ -39,7 +39,6 @@ function toggleStayConnected() {
 }
 
 async function signup(e) {
-  e.preventDefault();
   errorMessage.value = "";
   if(type.value === options[0]) {
     if (lastName.value === "") {
@@ -99,7 +98,7 @@ async function signup(e) {
     password: password.value,
     type: type.value
   };
-  if(type === options[0]) {
+  if(type.value === options[0]) {
     user.firstName = firstName.value;
     user.lastName = lastName.value;
   } else {
