@@ -4,7 +4,7 @@ Chaque utilisateur connecté en tant que particulier, pourra ainsi voir et mettr
 Les entreprises, quant à elles pourront créer des offres d'emplois et voir leurs propres offres en plus de celles des autres.
 
 # Type d'architecture
-Nous avons implémenté une Single Page Application et avec le framework VueJS nous utilisons le Client Side Rendering.
+Nous avons implémenté une Single Page Application avec l'architecture MVVM et avec le framework VueJS nous utilisons le Client Side Rendering.
 
 # Comment installer JobaJobi?
 
