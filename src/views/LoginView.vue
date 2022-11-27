@@ -5,8 +5,9 @@ import InputInFormVue from "../components/InputInForm.vue";
 import SubmitButtonInFormVue from "../components/SubmitButtonInForm.vue";
 import NotificationSpanVue from "../components/NotificationSpan.vue";
 import api_requests from "@/utils/api_requests";
-import navbar_variables from "@/utils/navbar_variables";
+import {useNavbarStore} from "@/stores/navbar_variables";
 
+const store = useNavbarStore();
 const email = ref('');
 const password = ref('');
 const notification = ref('');
@@ -37,7 +38,7 @@ const login = async () => {
     window.sessionStorage.setItem("token", newUser.token);
   }
   router.push("/");
-  await navbar_variables.changeIsUser();
+  await store.changeIsUser();
   return;
 };
 </script>

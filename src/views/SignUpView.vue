@@ -8,10 +8,10 @@ import SelectInForm from "@/components/SelectInForm.vue";
 import SubmitButtonInForm from "@/components/SubmitButtonInForm.vue";
 import TextAreaInForm from "@/components/TextAreaInForm.vue";
 import NotificationSpan from "@/components/NotificationSpan.vue";
-import navbar_variables from "@/utils/navbar_variables";
+import {useNavbarStore} from "@/stores/navbar_variables";
 
 const options = ["Particulier", "Entreprise"];
-
+const store = useNavbarStore();
 //Form values
 const birthday = ref(null);
 const phone = ref("");
@@ -117,7 +117,7 @@ async function signup(e) {
     console.error(e.message);
   }
   await router.push("/");
-  await navbar_variables.changeIsUser();
+  await store.changeIsUser();
 }
 </script>
 

@@ -3,15 +3,17 @@ import {ref} from "vue";
 import api_requests from "../utils/api_requests";
 import NavbarElement from "@/components/NavbarElement.vue";
 import utils from "@/utils/utils";
-import navbar_variables from "@/utils/navbar_variables";
+import {useNavbarStore} from "@/stores/navbar_variables";
 
-const user = navbar_variables.getUser();
-const isConnected = navbar_variables.getIsConnected();
-const isParticular = navbar_variables.getIsParticular();
+const store = useNavbarStore();
+const user = store.getUser();
+const isConnected = store.getIsConnected();
+const isParticular = store.getIsParticular();
 
 if(utils.isConnected()) {
-  navbar_variables.changeIsUser();
+  store.changeIsUser();
 }
+
 </script>
 
 <template>
