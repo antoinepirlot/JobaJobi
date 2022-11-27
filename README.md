@@ -22,4 +22,4 @@ npm start
 # Code source utilisé
 Chemin du fichier où se trouve le code réutilisé | Auteur du code source réutilisé | URL où le code réutilisé est disponible | Raison de la réutilisation du code
 --- |--- |--- |---
-JobaJobi/src/views/CreateJobOfferView.vue | ZoneCSS.fr | https://www.zonecss.fr/faq/les-boutons-en-css.html#:~:text=Mon%20bouton%20Css-,Accessibilité%20et%20le%20bouton% | Pour pouvoir appliquer un style à un bouton pour qu'il soit plus arrondi20Css,HTML%20role%3D"button"%20.
+JobaJobi/src/views/CreateJobOfferView.vue | ZoneCSS.fr | https://www.zonecss.fr/faq/les-boutons-en-css.html | Pour pouvoir appliquer un style à un bouton pour qu'il soit arrondi
