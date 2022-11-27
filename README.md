@@ -19,3 +19,7 @@ npm install
 ```sh
 npm start
 ```
+# Code source utilisé
+Chemin du fichier où se trouve le code réutilisé | Auteur du code source réutilisé | URL où le code réutilisé est disponible | Raison de la réutilisation du code
+--- |--- |--- |---
+JobaJobi/src/views/CreateJobOfferView.vue | ZoneCSS.fr | https://www.zonecss.fr/faq/les-boutons-en-css.html | Pour pouvoir appliquer un style à un bouton pour qu'il soit arrondi
